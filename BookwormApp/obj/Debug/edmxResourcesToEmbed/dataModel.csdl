@@ -1,0 +1,642 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AUTHOR">
+    <Key>
+      <PropertyRef Name="AuthorId" />
+    </Key>
+    <Property Name="AuthorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Biography" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="BOOK_AUTHOR" Relationship="Self.Author2IdFK" FromRole="AUTHOR" ToRole="BOOK_AUTHOR" />
+    <NavigationProperty Name="BOOK_AUTHOR1" Relationship="Self.AuthorIdFK" FromRole="AUTHOR" ToRole="BOOK_AUTHOR" />
+  </EntityType>
+  <EntityType Name="BOOK">
+    <Key>
+      <PropertyRef Name="BookId" />
+    </Key>
+    <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PublisherId" Type="Int32" Nullable="false" />
+    <Property Name="InventoryId" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Edition" Type="Int32" />
+    <Property Name="Rating" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ISBN" Type="Int32" />
+    <Property Name="CopyRightDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="BOOK_AUTHOR" Relationship="Self.Book2IdFK" FromRole="BOOKS" ToRole="BOOK_AUTHOR" />
+    <NavigationProperty Name="BOOK_AUTHOR1" Relationship="Self.BookIdFK" FromRole="BOOKS" ToRole="BOOK_AUTHOR" />
+    <NavigationProperty Name="PUBLISHER" Relationship="Self.PublisherIdFK" FromRole="BOOKS" ToRole="PUBLISHER" />
+    <NavigationProperty Name="GENREs" Relationship="Self.GENRE_BOOK" FromRole="BOOKS" ToRole="GENRE" />
+    <NavigationProperty Name="BOOK_CART" Relationship="DataModel.BookCartIdFK" FromRole="BOOK" ToRole="BOOK_CART" />
+  </EntityType>
+  <EntityType Name="CART">
+    <Key>
+      <PropertyRef Name="CartId" />
+    </Key>
+    <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Binary" MaxLength="1" FixedLength="true" />
+    <NavigationProperty Name="CUSTOMER" Relationship="Self.CustomerIdFK" FromRole="CART" ToRole="CUSTOMER" />
+    <NavigationProperty Name="BOOK_CART" Relationship="DataModel.CartIdFK" FromRole="CART" ToRole="BOOK_CART" />
+  </EntityType>
+  <EntityType Name="CUSTOMER">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="HomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="WorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CARTs" Relationship="Self.CustomerIdFK" FromRole="CUSTOMER" ToRole="CART" />
+    <NavigationProperty Name="INVOICEs" Relationship="Self.CustomerInvoiceIdFK" FromRole="CUSTOMER" ToRole="INVOICE" />
+  </EntityType>
+  <EntityType Name="GENRE">
+    <Key>
+      <PropertyRef Name="GenreName" />
+    </Key>
+    <Property Name="GenreName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BOOKS" Relationship="Self.GENRE_BOOK" FromRole="GENRE" ToRole="BOOKS" />
+  </EntityType>
+  <EntityType Name="INVENTORY">
+    <Key>
+      <PropertyRef Name="InventoryId" />
+    </Key>
+    <Property Name="InventoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RetailPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="WholeSalePrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="NumInStock" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="INVOICE">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="InvoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="CartId" Type="Int32" Nullable="false" />
+    <Property Name="BillingId" Type="Int32" Nullable="false" />
+    <Property Name="ShippingId" Type="Int32" Nullable="false" />
+    <Property Name="TotalCost" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="DateOrder" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="CUSTOMER" Relationship="Self.CustomerInvoiceIdFK" FromRole="INVOICE" ToRole="CUSTOMER" />
+  </EntityType>
+  <EntityType Name="LOGIN">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateRegistered" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="PUBLISHER">
+    <Key>
+      <PropertyRef Name="PublisherId" />
+    </Key>
+    <Property Name="PublisherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BOOKS" Relationship="Self.PublisherIdFK" FromRole="PUBLISHER" ToRole="BOOKS" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="BILLING">
+    <Key>
+      <PropertyRef Name="BillingId" />
+      <PropertyRef Name="CustomerId" />
+      <PropertyRef Name="CardId" />
+      <PropertyRef Name="State" />
+      <PropertyRef Name="Street" />
+      <PropertyRef Name="City" />
+      <PropertyRef Name="Zip" />
+    </Key>
+    <Property Name="BillingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="CardId" Type="Int32" Nullable="false" />
+    <Property Name="State" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Zip" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BOOK_AUTHOR">
+    <Key>
+      <PropertyRef Name="BookId" />
+      <PropertyRef Name="AuthorId" />
+    </Key>
+    <Property Name="BookId" Type="Int32" Nullable="false" />
+    <Property Name="AuthorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AUTHOR" Relationship="Self.Author2IdFK" FromRole="BOOK_AUTHOR" ToRole="AUTHOR" />
+    <NavigationProperty Name="AUTHOR1" Relationship="Self.AuthorIdFK" FromRole="BOOK_AUTHOR" ToRole="AUTHOR" />
+    <NavigationProperty Name="BOOK" Relationship="Self.Book2IdFK" FromRole="BOOK_AUTHOR" ToRole="BOOKS" />
+    <NavigationProperty Name="BOOK1" Relationship="Self.BookIdFK" FromRole="BOOK_AUTHOR" ToRole="BOOKS" />
+  </EntityType>
+  <EntityType Name="CREDIT_CARD">
+    <Key>
+      <PropertyRef Name="CardId" />
+      <PropertyRef Name="CardType" />
+      <PropertyRef Name="CardNumber" />
+      <PropertyRef Name="NameOnCard" />
+      <PropertyRef Name="ExpirationDate" />
+      <PropertyRef Name="SecurityCode" />
+    </Key>
+    <Property Name="CardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CardType" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardNumber" Type="Int64" Nullable="false" />
+    <Property Name="NameOnCard" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="SecurityCode" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EMPLOYEE">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+      <PropertyRef Name="Password" />
+      <PropertyRef Name="PermissionLvl" />
+    </Key>
+    <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PermissionLvl" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SHIPPING">
+    <Key>
+      <PropertyRef Name="ShippingId" />
+      <PropertyRef Name="CustomerId" />
+      <PropertyRef Name="State" />
+      <PropertyRef Name="Street" />
+      <PropertyRef Name="City" />
+      <PropertyRef Name="Zip" />
+    </Key>
+    <Property Name="ShippingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="State" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Zip" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="Author2IdFK">
+    <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
+    <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AUTHOR">
+        <PropertyRef Name="AuthorId" />
+      </Principal>
+      <Dependent Role="BOOK_AUTHOR">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AuthorIdFK">
+    <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
+    <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AUTHOR">
+        <PropertyRef Name="AuthorId" />
+      </Principal>
+      <Dependent Role="BOOK_AUTHOR">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Book2IdFK">
+    <End Role="BOOKS" Type="Self.BOOK" Multiplicity="1" />
+    <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOKS">
+        <PropertyRef Name="BookId" />
+      </Principal>
+      <Dependent Role="BOOK_AUTHOR">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookIdFK">
+    <End Role="BOOKS" Type="Self.BOOK" Multiplicity="1" />
+    <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOKS">
+        <PropertyRef Name="BookId" />
+      </Principal>
+      <Dependent Role="BOOK_AUTHOR">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PublisherIdFK">
+    <End Role="PUBLISHER" Type="Self.PUBLISHER" Multiplicity="1" />
+    <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PUBLISHER">
+        <PropertyRef Name="PublisherId" />
+      </Principal>
+      <Dependent Role="BOOKS">
+        <PropertyRef Name="PublisherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerIdFK">
+    <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="1" />
+    <End Role="CART" Type="Self.CART" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CUSTOMER">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="CART">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerInvoiceIdFK">
+    <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="1" />
+    <End Role="INVOICE" Type="Self.INVOICE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CUSTOMER">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="INVOICE">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GENRE_BOOK">
+    <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
+    <End Role="GENRE" Type="Self.GENRE" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="DataEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AUTHORs" EntityType="Self.AUTHOR" />
+    <EntitySet Name="BOOKS" EntityType="Self.BOOK" />
+    <EntitySet Name="CARTs" EntityType="Self.CART" />
+    <EntitySet Name="CUSTOMERs" EntityType="Self.CUSTOMER" />
+    <EntitySet Name="GENREs" EntityType="Self.GENRE" />
+    <EntitySet Name="INVENTORies" EntityType="Self.INVENTORY" />
+    <EntitySet Name="INVOICEs" EntityType="Self.INVOICE" />
+    <EntitySet Name="LOGINs" EntityType="Self.LOGIN" />
+    <EntitySet Name="PUBLISHERs" EntityType="Self.PUBLISHER" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="BILLINGs" EntityType="Self.BILLING" />
+    <EntitySet Name="BOOK_AUTHOR" EntityType="Self.BOOK_AUTHOR" />
+    <EntitySet Name="CREDIT_CARD" EntityType="Self.CREDIT_CARD" />
+    <EntitySet Name="EMPLOYEEs" EntityType="Self.EMPLOYEE" />
+    <EntitySet Name="SHIPPINGs" EntityType="Self.SHIPPING" />
+    <AssociationSet Name="Author2IdFK" Association="Self.Author2IdFK">
+      <End Role="AUTHOR" EntitySet="AUTHORs" />
+      <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+    </AssociationSet>
+    <AssociationSet Name="AuthorIdFK" Association="Self.AuthorIdFK">
+      <End Role="AUTHOR" EntitySet="AUTHORs" />
+      <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+    </AssociationSet>
+    <AssociationSet Name="Book2IdFK" Association="Self.Book2IdFK">
+      <End Role="BOOKS" EntitySet="BOOKS" />
+      <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+    </AssociationSet>
+    <AssociationSet Name="BookIdFK" Association="Self.BookIdFK">
+      <End Role="BOOKS" EntitySet="BOOKS" />
+      <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+    </AssociationSet>
+    <AssociationSet Name="PublisherIdFK" Association="Self.PublisherIdFK">
+      <End Role="PUBLISHER" EntitySet="PUBLISHERs" />
+      <End Role="BOOKS" EntitySet="BOOKS" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerIdFK" Association="Self.CustomerIdFK">
+      <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
+      <End Role="CART" EntitySet="CARTs" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerInvoiceIdFK" Association="Self.CustomerInvoiceIdFK">
+      <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
+      <End Role="INVOICE" EntitySet="INVOICEs" />
+    </AssociationSet>
+    <AssociationSet Name="GENRE_BOOK" Association="Self.GENRE_BOOK">
+      <End Role="BOOKS" EntitySet="BOOKS" />
+      <End Role="GENRE" EntitySet="GENREs" />
+    </AssociationSet>
+    <FunctionImport Name="AddAuthor">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="Biography" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddBilling">
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+      <Parameter Name="CardId" Mode="In" Type="Int32" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="Street" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="Zip" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddBook">
+      <Parameter Name="PublisherId" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Edition" Mode="In" Type="Int32" />
+      <Parameter Name="Rating" Mode="In" Type="Int32" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="ISBM" Mode="In" Type="Int32" />
+      <Parameter Name="CopyRightDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="AddBook_Author">
+      <Parameter Name="BookId" Mode="In" Type="Int32" />
+      <Parameter Name="AuthorId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddBookToCart">
+      <Parameter Name="CartId" Mode="In" Type="Int32" />
+      <Parameter Name="BookId" Mode="In" Type="Int32" />
+      <Parameter Name="Quantity" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddBookToInventory">
+      <Parameter Name="BookId" Mode="In" Type="Int32" />
+      <Parameter Name="RetailPrice" Mode="In" Type="Decimal" />
+      <Parameter Name="WholeSalePrice" Mode="In" Type="Decimal" />
+      <Parameter Name="NumInStock" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddCart">
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddCreditCard">
+      <Parameter Name="CardType" Mode="In" Type="String" />
+      <Parameter Name="CardNumber" Mode="In" Type="Int32" />
+      <Parameter Name="NameOnCard" Mode="In" Type="String" />
+      <Parameter Name="ExpirationDate" Mode="In" Type="DateTime" />
+      <Parameter Name="SecurityCode" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddCustomer">
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
+      <Parameter Name="HomePhone" Mode="In" Type="String" />
+      <Parameter Name="WorkPhone" Mode="In" Type="String" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddEmployee">
+      <Parameter Name="EmployeeEmail" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="PermissionLvl" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddGenre">
+      <Parameter Name="GenreName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddGenre_Book">
+      <Parameter Name="BookId" Mode="In" Type="Int32" />
+      <Parameter Name="GenreName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddPublisher">
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Street" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="Zip" Mode="In" Type="String" />
+      <Parameter Name="Phone" Mode="In" Type="String" />
+      <Parameter Name="ContactName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddShipping">
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="Street" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="Zip" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddUserAsCustomer">
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
+      <Parameter Name="HomePhone" Mode="In" Type="String" />
+      <Parameter Name="WorkPhone" Mode="In" Type="String" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddUserAsEmployee">
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="PermissionLvl" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CreateInvoice">
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+      <Parameter Name="CartId" Mode="In" Type="Int32" />
+      <Parameter Name="BillingId" Mode="In" Type="Int32" />
+      <Parameter Name="ShippingId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteCustomer">
+      <Parameter Name="Email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteEmployee">
+      <Parameter Name="Email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteUser">
+      <Parameter Name="Email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DisableCart">
+      <Parameter Name="CartId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetBookAuthors" ReturnType="Collection(Int32)">
+      <Parameter Name="BookId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetBookGenres" ReturnType="Collection(String)">
+      <Parameter Name="BookId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetBooksByGenre" ReturnType="Collection(Int32)">
+      <Parameter Name="GenreName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetBooksByPublisher" ReturnType="Collection(Int32)">
+      <Parameter Name="PublisherId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetCustomerHistory" ReturnType="Collection(DataModel.GetCustomerHistory_Result)">
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetPublisherSalesByDay" ReturnType="Collection(DataModel.GetPublisherSalesByDay_Result)">
+      <Parameter Name="PublisherId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetRevenueOverTimeFrame" ReturnType="Collection(Decimal)">
+      <Parameter Name="From" Mode="In" Type="DateTime" />
+      <Parameter Name="To" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="RemoveBookFromCart">
+      <Parameter Name="CartId" Mode="In" Type="Int32" />
+      <Parameter Name="BookId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="RemoveQuantityOfBookFromCart">
+      <Parameter Name="CartId" Mode="In" Type="Int32" />
+      <Parameter Name="BookId" Mode="In" Type="Int32" />
+      <Parameter Name="Quantity" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DataModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DataModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="Update_Publisher">
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Street" Mode="In" Type="String" />
+      <Parameter Name="Zip" Mode="In" Type="String" />
+      <Parameter Name="NewStreet" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="NewZip" Mode="In" Type="String" />
+      <Parameter Name="Phone" Mode="In" Type="String" />
+      <Parameter Name="ContactName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateBilling">
+      <Parameter Name="oldState" Mode="In" Type="String" />
+      <Parameter Name="oldStreet" Mode="In" Type="String" />
+      <Parameter Name="oldCity" Mode="In" Type="String" />
+      <Parameter Name="oldZip" Mode="In" Type="Int32" />
+      <Parameter Name="newState" Mode="In" Type="String" />
+      <Parameter Name="newStreet" Mode="In" Type="String" />
+      <Parameter Name="newCity" Mode="In" Type="String" />
+      <Parameter Name="newZip" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateCreditCard">
+      <Parameter Name="oldCardNumber" Mode="In" Type="Int32" />
+      <Parameter Name="newCardNumber" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateCustomerEmail">
+      <Parameter Name="oldEmail" Mode="In" Type="String" />
+      <Parameter Name="newEmail" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateEmployeeEmail">
+      <Parameter Name="oldEmployeeEmail" Mode="In" Type="String" />
+      <Parameter Name="newEmployeeEmail" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateEmployeePassword">
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdatePriceOfBook">
+      <Parameter Name="InventoryId" Mode="In" Type="Int32" />
+      <Parameter Name="oldBookPrice" Mode="In" Type="Decimal" />
+      <Parameter Name="newBookPrice" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateShipping">
+      <Parameter Name="oldState" Mode="In" Type="String" />
+      <Parameter Name="oldStreet" Mode="In" Type="String" />
+      <Parameter Name="oldCity" Mode="In" Type="String" />
+      <Parameter Name="oldZip" Mode="In" Type="Int32" />
+      <Parameter Name="newState" Mode="In" Type="String" />
+      <Parameter Name="newStreet" Mode="In" Type="String" />
+      <Parameter Name="newCity" Mode="In" Type="String" />
+      <Parameter Name="newZip" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateUserEmail">
+      <Parameter Name="oldEmail" Mode="In" Type="String" />
+      <Parameter Name="newEmail" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateUserPassword">
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateWholeSalePriceOfBook">
+      <Parameter Name="InventoryId" Mode="In" Type="Int32" />
+      <Parameter Name="oldBookPrice" Mode="In" Type="Decimal" />
+      <Parameter Name="newBookPrice" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <EntitySet Name="BOOK_CART" EntityType="DataModel.BOOK_CART" />
+    <AssociationSet Name="BookCartIdFK" Association="DataModel.BookCartIdFK">
+      <End Role="BOOK" EntitySet="BOOKS" />
+      <End Role="BOOK_CART" EntitySet="BOOK_CART" />
+    </AssociationSet>
+    <AssociationSet Name="CartIdFK" Association="DataModel.CartIdFK">
+      <End Role="CART" EntitySet="CARTs" />
+      <End Role="BOOK_CART" EntitySet="BOOK_CART" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="GetCustomerHistory_Result">
+    <Property Type="String" Name="First_Name" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="Book" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="GetPublisherSalesByDay_Result">
+    <Property Type="Decimal" Name="Revenue" Nullable="false" Precision="19" />
+    <Property Type="DateTime" Name="Day" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="BOOK_CART">
+    <Key>
+      <PropertyRef Name="BookId" />
+      <PropertyRef Name="CartId" />
+    </Key>
+    <Property Name="BookId" Type="Int32" Nullable="false" />
+    <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Quantity" Type="Int32" />
+    <NavigationProperty Name="BOOK" Relationship="DataModel.BookCartIdFK" FromRole="BOOK_CART" ToRole="BOOK" />
+    <NavigationProperty Name="CART" Relationship="DataModel.CartIdFK" FromRole="BOOK_CART" ToRole="CART" />
+  </EntityType>
+  <Association Name="BookCartIdFK">
+    <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="1" />
+    <End Type="DataModel.BOOK_CART" Role="BOOK_CART" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOK">
+        <PropertyRef Name="BookId" />
+      </Principal>
+      <Dependent Role="BOOK_CART">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CartIdFK">
+    <End Type="DataModel.CART" Role="CART" Multiplicity="1" />
+    <End Type="DataModel.BOOK_CART" Role="BOOK_CART" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CART">
+        <PropertyRef Name="CartId" />
+      </Principal>
+      <Dependent Role="BOOK_CART">
+        <PropertyRef Name="CartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
