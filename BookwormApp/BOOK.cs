@@ -18,9 +18,9 @@ namespace BookwormApp
         public BOOK()
         {
             this.BOOK_AUTHOR = new HashSet<BOOK_AUTHOR>();
+            this.BOOK_CART = new HashSet<BOOK_CART>();
             this.BOOK_AUTHOR1 = new HashSet<BOOK_AUTHOR>();
             this.GENREs = new HashSet<GENRE>();
-            this.BOOK_CART = new HashSet<BOOK_CART>();
         }
     
         public int BookId { get; set; }
@@ -37,11 +37,11 @@ namespace BookwormApp
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOOK_AUTHOR> BOOK_AUTHOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BOOK_CART> BOOK_CART { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOOK_AUTHOR> BOOK_AUTHOR1 { get; set; }
         public virtual PUBLISHER PUBLISHER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GENRE> GENREs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOOK_CART> BOOK_CART { get; set; }
     }
 }

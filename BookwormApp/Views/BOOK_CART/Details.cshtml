@@ -1,0 +1,42 @@
+﻿@model BookwormApp.BOOK_CART
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BOOK_CART</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CART.CartId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CART.CartId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BOOK.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BOOK.Title)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -28,10 +28,8 @@ namespace BookwormApp
         }
     
         public virtual DbSet<AUTHOR> AUTHORs { get; set; }
-        public virtual DbSet<BOOK> BOOKS { get; set; }
         public virtual DbSet<CART> CARTs { get; set; }
         public virtual DbSet<CUSTOMER> CUSTOMERs { get; set; }
-        public virtual DbSet<GENRE> GENREs { get; set; }
         public virtual DbSet<INVENTORY> INVENTORies { get; set; }
         public virtual DbSet<INVOICE> INVOICEs { get; set; }
         public virtual DbSet<LOGIN> LOGINs { get; set; }
@@ -43,6 +41,8 @@ namespace BookwormApp
         public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
         public virtual DbSet<SHIPPING> SHIPPINGs { get; set; }
         public virtual DbSet<BOOK_CART> BOOK_CART { get; set; }
+        public virtual DbSet<BOOK> BOOKS { get; set; }
+        public virtual DbSet<GENRE> GENREs { get; set; }
     
         public virtual int AddAuthor(string firstName, string lastName, string biography)
         {

@@ -11,26 +11,6 @@
     <NavigationProperty Name="BOOK_AUTHOR" Relationship="Self.Author2IdFK" FromRole="AUTHOR" ToRole="BOOK_AUTHOR" />
     <NavigationProperty Name="BOOK_AUTHOR1" Relationship="Self.AuthorIdFK" FromRole="AUTHOR" ToRole="BOOK_AUTHOR" />
   </EntityType>
-  <EntityType Name="BOOK">
-    <Key>
-      <PropertyRef Name="BookId" />
-    </Key>
-    <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PublisherId" Type="Int32" Nullable="false" />
-    <Property Name="InventoryId" Type="Int32" />
-    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Edition" Type="Int32" />
-    <Property Name="Rating" Type="Int32" />
-    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="ISBN" Type="Int32" />
-    <Property Name="CopyRightDate" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="BOOK_AUTHOR" Relationship="Self.Book2IdFK" FromRole="BOOKS" ToRole="BOOK_AUTHOR" />
-    <NavigationProperty Name="BOOK_AUTHOR1" Relationship="Self.BookIdFK" FromRole="BOOKS" ToRole="BOOK_AUTHOR" />
-    <NavigationProperty Name="PUBLISHER" Relationship="Self.PublisherIdFK" FromRole="BOOKS" ToRole="PUBLISHER" />
-    <NavigationProperty Name="GENREs" Relationship="Self.GENRE_BOOK" FromRole="BOOKS" ToRole="GENRE" />
-    <NavigationProperty Name="BOOK_CART" Relationship="DataModel.BookCartIdFK" FromRole="BOOK" ToRole="BOOK_CART" />
-  </EntityType>
   <EntityType Name="CART">
     <Key>
       <PropertyRef Name="CartId" />
@@ -56,13 +36,6 @@
     <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="CARTs" Relationship="Self.CustomerIdFK" FromRole="CUSTOMER" ToRole="CART" />
     <NavigationProperty Name="INVOICEs" Relationship="Self.CustomerInvoiceIdFK" FromRole="CUSTOMER" ToRole="INVOICE" />
-  </EntityType>
-  <EntityType Name="GENRE">
-    <Key>
-      <PropertyRef Name="GenreName" />
-    </Key>
-    <Property Name="GenreName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="BOOKS" Relationship="Self.GENRE_BOOK" FromRole="GENRE" ToRole="BOOKS" />
   </EntityType>
   <EntityType Name="INVENTORY">
     <Key>
@@ -106,7 +79,7 @@
     <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="BOOKS" Relationship="Self.PublisherIdFK" FromRole="PUBLISHER" ToRole="BOOKS" />
+    <NavigationProperty Name="BOOKS" Relationship="DataModel.PublisherIdFK" FromRole="PUBLISHER" ToRole="BOOK" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -145,8 +118,8 @@
     <Property Name="AuthorId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="AUTHOR" Relationship="Self.Author2IdFK" FromRole="BOOK_AUTHOR" ToRole="AUTHOR" />
     <NavigationProperty Name="AUTHOR1" Relationship="Self.AuthorIdFK" FromRole="BOOK_AUTHOR" ToRole="AUTHOR" />
-    <NavigationProperty Name="BOOK" Relationship="Self.Book2IdFK" FromRole="BOOK_AUTHOR" ToRole="BOOKS" />
-    <NavigationProperty Name="BOOK1" Relationship="Self.BookIdFK" FromRole="BOOK_AUTHOR" ToRole="BOOKS" />
+    <NavigationProperty Name="BOOK" Relationship="DataModel.Book2IdFK" FromRole="BOOK_AUTHOR" ToRole="BOOK" />
+    <NavigationProperty Name="BOOK1" Relationship="DataModel.BookIdFK" FromRole="BOOK_AUTHOR" ToRole="BOOK" />
   </EntityType>
   <EntityType Name="CREDIT_CARD">
     <Key>
@@ -215,42 +188,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="Book2IdFK">
-    <End Role="BOOKS" Type="Self.BOOK" Multiplicity="1" />
-    <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="BOOKS">
-        <PropertyRef Name="BookId" />
-      </Principal>
-      <Dependent Role="BOOK_AUTHOR">
-        <PropertyRef Name="BookId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="BookIdFK">
-    <End Role="BOOKS" Type="Self.BOOK" Multiplicity="1" />
-    <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="BOOKS">
-        <PropertyRef Name="BookId" />
-      </Principal>
-      <Dependent Role="BOOK_AUTHOR">
-        <PropertyRef Name="BookId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="PublisherIdFK">
-    <End Role="PUBLISHER" Type="Self.PUBLISHER" Multiplicity="1" />
-    <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PUBLISHER">
-        <PropertyRef Name="PublisherId" />
-      </Principal>
-      <Dependent Role="BOOKS">
-        <PropertyRef Name="PublisherId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="CustomerIdFK">
     <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="1" />
     <End Role="CART" Type="Self.CART" Multiplicity="*" />
@@ -275,16 +212,10 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="GENRE_BOOK">
-    <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
-    <End Role="GENRE" Type="Self.GENRE" Multiplicity="*" />
-  </Association>
   <EntityContainer Name="DataEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUTHORs" EntityType="Self.AUTHOR" />
-    <EntitySet Name="BOOKS" EntityType="Self.BOOK" />
     <EntitySet Name="CARTs" EntityType="Self.CART" />
     <EntitySet Name="CUSTOMERs" EntityType="Self.CUSTOMER" />
-    <EntitySet Name="GENREs" EntityType="Self.GENRE" />
     <EntitySet Name="INVENTORies" EntityType="Self.INVENTORY" />
     <EntitySet Name="INVOICEs" EntityType="Self.INVOICE" />
     <EntitySet Name="LOGINs" EntityType="Self.LOGIN" />
@@ -303,18 +234,6 @@
       <End Role="AUTHOR" EntitySet="AUTHORs" />
       <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
     </AssociationSet>
-    <AssociationSet Name="Book2IdFK" Association="Self.Book2IdFK">
-      <End Role="BOOKS" EntitySet="BOOKS" />
-      <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
-    </AssociationSet>
-    <AssociationSet Name="BookIdFK" Association="Self.BookIdFK">
-      <End Role="BOOKS" EntitySet="BOOKS" />
-      <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
-    </AssociationSet>
-    <AssociationSet Name="PublisherIdFK" Association="Self.PublisherIdFK">
-      <End Role="PUBLISHER" EntitySet="PUBLISHERs" />
-      <End Role="BOOKS" EntitySet="BOOKS" />
-    </AssociationSet>
     <AssociationSet Name="CustomerIdFK" Association="Self.CustomerIdFK">
       <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
       <End Role="CART" EntitySet="CARTs" />
@@ -322,10 +241,6 @@
     <AssociationSet Name="CustomerInvoiceIdFK" Association="Self.CustomerInvoiceIdFK">
       <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
       <End Role="INVOICE" EntitySet="INVOICEs" />
-    </AssociationSet>
-    <AssociationSet Name="GENRE_BOOK" Association="Self.GENRE_BOOK">
-      <End Role="BOOKS" EntitySet="BOOKS" />
-      <End Role="GENRE" EntitySet="GENREs" />
     </AssociationSet>
     <FunctionImport Name="AddAuthor">
       <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -574,13 +489,31 @@
       <Parameter Name="newBookPrice" Mode="In" Type="Decimal" />
     </FunctionImport>
     <EntitySet Name="BOOK_CART" EntityType="DataModel.BOOK_CART" />
+    <AssociationSet Name="CartIdFK" Association="DataModel.CartIdFK">
+      <End Role="CART" EntitySet="CARTs" />
+      <End Role="BOOK_CART" EntitySet="BOOK_CART" />
+    </AssociationSet>
+    <EntitySet Name="BOOKS" EntityType="DataModel.BOOK" />
+    <EntitySet Name="GENREs" EntityType="DataModel.GENRE" />
+    <AssociationSet Name="Book2IdFK" Association="DataModel.Book2IdFK">
+      <End Role="BOOK" EntitySet="BOOKS" />
+      <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+    </AssociationSet>
     <AssociationSet Name="BookCartIdFK" Association="DataModel.BookCartIdFK">
       <End Role="BOOK" EntitySet="BOOKS" />
       <End Role="BOOK_CART" EntitySet="BOOK_CART" />
     </AssociationSet>
-    <AssociationSet Name="CartIdFK" Association="DataModel.CartIdFK">
-      <End Role="CART" EntitySet="CARTs" />
-      <End Role="BOOK_CART" EntitySet="BOOK_CART" />
+    <AssociationSet Name="BookIdFK" Association="DataModel.BookIdFK">
+      <End Role="BOOK" EntitySet="BOOKS" />
+      <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+    </AssociationSet>
+    <AssociationSet Name="PublisherIdFK" Association="DataModel.PublisherIdFK">
+      <End Role="PUBLISHER" EntitySet="PUBLISHERs" />
+      <End Role="BOOK" EntitySet="BOOKS" />
+    </AssociationSet>
+    <AssociationSet Name="GENRE_BOOK" Association="DataModel.GENRE_BOOK">
+      <End Role="BOOK" EntitySet="BOOKS" />
+      <End Role="GENRE" EntitySet="GENREs" />
     </AssociationSet>
   </EntityContainer>
   <ComplexType Name="GetCustomerHistory_Result">
@@ -612,9 +545,60 @@
     <Property Name="BookId" Type="Int32" Nullable="false" />
     <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Quantity" Type="Int32" />
-    <NavigationProperty Name="BOOK" Relationship="DataModel.BookCartIdFK" FromRole="BOOK_CART" ToRole="BOOK" />
     <NavigationProperty Name="CART" Relationship="DataModel.CartIdFK" FromRole="BOOK_CART" ToRole="CART" />
+    <NavigationProperty Name="BOOK" Relationship="DataModel.BookCartIdFK" FromRole="BOOK_CART" ToRole="BOOK" />
   </EntityType>
+  <Association Name="CartIdFK">
+    <End Type="DataModel.CART" Role="CART" Multiplicity="1" />
+    <End Type="DataModel.BOOK_CART" Role="BOOK_CART" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CART">
+        <PropertyRef Name="CartId" />
+      </Principal>
+      <Dependent Role="BOOK_CART">
+        <PropertyRef Name="CartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="BOOK">
+    <Key>
+      <PropertyRef Name="BookId" />
+    </Key>
+    <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PublisherId" Type="Int32" Nullable="false" />
+    <Property Name="InventoryId" Type="Int32" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Edition" Type="Int32" />
+    <Property Name="Rating" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ISBN" Type="Int32" />
+    <Property Name="CopyRightDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="BOOK_AUTHOR" Relationship="DataModel.Book2IdFK" FromRole="BOOK" ToRole="BOOK_AUTHOR" />
+    <NavigationProperty Name="BOOK_CART" Relationship="DataModel.BookCartIdFK" FromRole="BOOK" ToRole="BOOK_CART" />
+    <NavigationProperty Name="BOOK_AUTHOR1" Relationship="DataModel.BookIdFK" FromRole="BOOK" ToRole="BOOK_AUTHOR" />
+    <NavigationProperty Name="PUBLISHER" Relationship="DataModel.PublisherIdFK" FromRole="BOOK" ToRole="PUBLISHER" />
+    <NavigationProperty Name="GENREs" Relationship="DataModel.GENRE_BOOK" FromRole="BOOK" ToRole="GENRE" />
+  </EntityType>
+  <EntityType Name="GENRE">
+    <Key>
+      <PropertyRef Name="GenreName" />
+    </Key>
+    <Property Name="GenreName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="BOOKS" Relationship="DataModel.GENRE_BOOK" FromRole="GENRE" ToRole="BOOK" />
+  </EntityType>
+  <Association Name="Book2IdFK">
+    <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="1" />
+    <End Type="DataModel.BOOK_AUTHOR" Role="BOOK_AUTHOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOK">
+        <PropertyRef Name="BookId" />
+      </Principal>
+      <Dependent Role="BOOK_AUTHOR">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="BookCartIdFK">
     <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="1" />
     <End Type="DataModel.BOOK_CART" Role="BOOK_CART" Multiplicity="*" />
@@ -627,16 +611,32 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="CartIdFK">
-    <End Type="DataModel.CART" Role="CART" Multiplicity="1" />
-    <End Type="DataModel.BOOK_CART" Role="BOOK_CART" Multiplicity="*" />
+  <Association Name="BookIdFK">
+    <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="1" />
+    <End Type="DataModel.BOOK_AUTHOR" Role="BOOK_AUTHOR" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="CART">
-        <PropertyRef Name="CartId" />
+      <Principal Role="BOOK">
+        <PropertyRef Name="BookId" />
       </Principal>
-      <Dependent Role="BOOK_CART">
-        <PropertyRef Name="CartId" />
+      <Dependent Role="BOOK_AUTHOR">
+        <PropertyRef Name="BookId" />
       </Dependent>
     </ReferentialConstraint>
+  </Association>
+  <Association Name="PublisherIdFK">
+    <End Type="DataModel.PUBLISHER" Role="PUBLISHER" Multiplicity="1" />
+    <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PUBLISHER">
+        <PropertyRef Name="PublisherId" />
+      </Principal>
+      <Dependent Role="BOOK">
+        <PropertyRef Name="PublisherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GENRE_BOOK">
+    <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="*" />
+    <End Type="DataModel.GENRE" Role="GENRE" Multiplicity="*" />
   </Association>
 </Schema>

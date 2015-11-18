@@ -11,22 +11,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="BOOKS">
-      <EntityTypeMapping TypeName="DataModel.BOOK">
-        <MappingFragment StoreEntitySet="BOOKS">
-          <ScalarProperty Name="BookId" ColumnName="BookId" />
-          <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
-          <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Edition" ColumnName="Edition" />
-          <ScalarProperty Name="Rating" ColumnName="Rating" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-          <ScalarProperty Name="CopyRightDate" ColumnName="CopyRightDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="CARTs">
       <EntityTypeMapping TypeName="DataModel.CART">
         <MappingFragment StoreEntitySet="CART">
@@ -48,13 +32,6 @@
           <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="State" ColumnName="State" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="GENREs">
-      <EntityTypeMapping TypeName="DataModel.GENRE">
-        <MappingFragment StoreEntitySet="GENRE">
-          <ScalarProperty Name="GenreName" ColumnName="GenreName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -170,14 +147,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="GENRE_BOOK" TypeName="DataModel.GENRE_BOOK" StoreEntitySet="GENRE_BOOK">
-      <EndProperty Name="BOOKS">
-        <ScalarProperty Name="BookId" ColumnName="BookId" />
-      </EndProperty>
-      <EndProperty Name="GENRE">
-        <ScalarProperty Name="GenreName" ColumnName="GenreName" />
-      </EndProperty>
-    </AssociationSetMapping>
     <FunctionImportMapping FunctionImportName="AddAuthor" FunctionName="DataModel.Store.AddAuthor" />
     <FunctionImportMapping FunctionImportName="AddBilling" FunctionName="DataModel.Store.AddBilling" />
     <FunctionImportMapping FunctionImportName="AddBook" FunctionName="DataModel.Store.AddBook" />
@@ -268,5 +237,36 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BOOKS">
+      <EntityTypeMapping TypeName="DataModel.BOOK">
+        <MappingFragment StoreEntitySet="BOOKS">
+          <ScalarProperty Name="CopyRightDate" ColumnName="CopyRightDate" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Edition" ColumnName="Edition" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
+          <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+          <ScalarProperty Name="BookId" ColumnName="BookId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GENREs">
+      <EntityTypeMapping TypeName="DataModel.GENRE">
+        <MappingFragment StoreEntitySet="GENRE">
+          <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GENRE_BOOK" TypeName="DataModel.GENRE_BOOK" StoreEntitySet="GENRE_BOOK">
+      <EndProperty Name="GENRE">
+        <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+      </EndProperty>
+      <EndProperty Name="BOOK">
+        <ScalarProperty Name="BookId" ColumnName="BookId" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

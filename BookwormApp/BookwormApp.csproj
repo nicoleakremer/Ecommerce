@@ -179,9 +179,14 @@
       <DependentUpon>dataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AUTHORsController.cs" />
+    <Compile Include="Controllers\BOOKsController.cs" />
     <Compile Include="Controllers\BookwormController.cs" />
+    <Compile Include="Controllers\BOOK_CARTController.cs" />
+    <Compile Include="Controllers\CARTsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PUBLISHERsController.cs" />
     <Compile Include="CREDIT_CARD.cs">
       <DependentUpon>dataModel.tt</DependentUpon>
     </Compile>
@@ -327,6 +332,31 @@
     <Content Include="Views\Bookworm\Details.cshtml" />
     <Content Include="Views\Bookworm\Edit.cshtml" />
     <Content Include="Views\Bookworm\Index.cshtml" />
+    <Content Include="Views\AUTHORs\Create.cshtml" />
+    <Content Include="Views\AUTHORs\Delete.cshtml" />
+    <Content Include="Views\AUTHORs\Details.cshtml" />
+    <Content Include="Views\AUTHORs\Edit.cshtml" />
+    <Content Include="Views\AUTHORs\Index.cshtml" />
+    <Content Include="Views\BOOKs\Create.cshtml" />
+    <Content Include="Views\BOOKs\Delete.cshtml" />
+    <Content Include="Views\BOOKs\Details.cshtml" />
+    <Content Include="Views\BOOKs\Edit.cshtml" />
+    <Content Include="Views\BOOKs\Index.cshtml" />
+    <Content Include="Views\PUBLISHERs\Create.cshtml" />
+    <Content Include="Views\PUBLISHERs\Delete.cshtml" />
+    <Content Include="Views\PUBLISHERs\Details.cshtml" />
+    <Content Include="Views\PUBLISHERs\Edit.cshtml" />
+    <Content Include="Views\PUBLISHERs\Index.cshtml" />
+    <Content Include="Views\CARTs\Create.cshtml" />
+    <Content Include="Views\CARTs\Delete.cshtml" />
+    <Content Include="Views\CARTs\Details.cshtml" />
+    <Content Include="Views\CARTs\Edit.cshtml" />
+    <Content Include="Views\CARTs\Index.cshtml" />
+    <Content Include="Views\BOOK_CART\Create.cshtml" />
+    <Content Include="Views\BOOK_CART\Delete.cshtml" />
+    <Content Include="Views\BOOK_CART\Details.cshtml" />
+    <Content Include="Views\BOOK_CART\Edit.cshtml" />
+    <Content Include="Views\BOOK_CART\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

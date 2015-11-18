@@ -6,15 +6,13 @@
     <edmx:Diagrams>
       <Diagram DiagramId="c02ae55b6455453ea5cf5a5ff9a87303" Name="Diagram1">
         <EntityTypeShape EntityType="DataModel.AUTHOR" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.BOOK" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.CART" Width="1.5" PointX="6" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.CUSTOMER" Width="1.5" PointX="3.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.GENRE" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.INVENTORY" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.INVOICE" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.LOGIN" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.PUBLISHER" Width="1.5" PointX="1.5" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.sysdiagram" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.sysdiagram" Width="1.5" PointX="8.875" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.BILLING" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.BOOK_AUTHOR" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DataModel.CREDIT_CARD" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
@@ -22,15 +20,17 @@
         <EntityTypeShape EntityType="DataModel.SHIPPING" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
         <AssociationConnector Association="DataModel.Author2IdFK" ManuallyRouted="false" />
         <AssociationConnector Association="DataModel.AuthorIdFK" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.Book2IdFK" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.BookIdFK" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.PublisherIdFK" ManuallyRouted="false" />
         <AssociationConnector Association="DataModel.CustomerIdFK" ManuallyRouted="false" />
         <AssociationConnector Association="DataModel.CustomerInvoiceIdFK" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.GENRE_BOOK" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DataModel.BOOK_CART" Width="1.5" PointX="11.25" PointY="9.75" />
-        <AssociationConnector Association="DataModel.BookCartIdFK" />
         <AssociationConnector Association="DataModel.CartIdFK" />
+        <EntityTypeShape EntityType="DataModel.BOOK" Width="1.5" PointX="5.25" PointY="11.625" />
+        <EntityTypeShape EntityType="DataModel.GENRE" Width="1.5" PointX="7.5" PointY="12.875" />
+        <AssociationConnector Association="DataModel.Book2IdFK" />
+        <AssociationConnector Association="DataModel.BookCartIdFK" />
+        <AssociationConnector Association="DataModel.BookIdFK" />
+        <AssociationConnector Association="DataModel.PublisherIdFK" />
+        <AssociationConnector Association="DataModel.GENRE_BOOK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

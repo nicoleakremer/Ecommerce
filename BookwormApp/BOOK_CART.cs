@@ -18,7 +18,7 @@ namespace BookwormApp
         public int CartId { get; set; }
         public Nullable<int> Quantity { get; set; }
     
-        public virtual BOOK BOOK { get; set; }
         public virtual CART CART { get; set; }
+        public virtual BOOK BOOK { get; set; }
     }
 }
