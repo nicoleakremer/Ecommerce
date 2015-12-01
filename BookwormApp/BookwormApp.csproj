@@ -180,10 +180,10 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AUTHORsController.cs" />
-    <Compile Include="Controllers\BOOKsController.cs" />
     <Compile Include="Controllers\BookwormController.cs" />
     <Compile Include="Controllers\BOOK_CARTController.cs" />
     <Compile Include="Controllers\CARTsController.cs" />
+    <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PUBLISHERsController.cs" />
@@ -233,7 +233,8 @@
       <DependentUpon>dataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AddBooks.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -338,11 +339,6 @@
     <Content Include="Views\AUTHORs\Details.cshtml" />
     <Content Include="Views\AUTHORs\Edit.cshtml" />
     <Content Include="Views\AUTHORs\Index.cshtml" />
-    <Content Include="Views\BOOKs\Create.cshtml" />
-    <Content Include="Views\BOOKs\Delete.cshtml" />
-    <Content Include="Views\BOOKs\Details.cshtml" />
-    <Content Include="Views\BOOKs\Edit.cshtml" />
-    <Content Include="Views\BOOKs\Index.cshtml" />
     <Content Include="Views\PUBLISHERs\Create.cshtml" />
     <Content Include="Views\PUBLISHERs\Delete.cshtml" />
     <Content Include="Views\PUBLISHERs\Details.cshtml" />
@@ -358,6 +354,7 @@
     <Content Include="Views\BOOK_CART\Details.cshtml" />
     <Content Include="Views\BOOK_CART\Edit.cshtml" />
     <Content Include="Views\BOOK_CART\Index.cshtml" />
+    <Content Include="Views\Books\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
