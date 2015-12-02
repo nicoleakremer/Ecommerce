@@ -15,6 +15,7 @@ namespace BookwormApp.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private DataEntities db = new DataEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 

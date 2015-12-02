@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookwormApp;
+using BookwormApp.Models;
 
 namespace BookwormApp.Controllers
 {
@@ -17,8 +18,29 @@ namespace BookwormApp.Controllers
         // GET: CARTs
         public ActionResult Index()
         {
+            CUSTOMER customer = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First();
+            CART cart = db.CARTs.Where(x => x.CustomerId == customer.CustomerId).First();
+            var list = db.BOOK_CART.Where(x => x.CartId == cart.CartId);
+            List<Cart> CartList = new List<Cart>();
+            foreach (var item in list)
+            {
+                Cart Shopping = new Cart();
+                BOOK Book = db.BOOKS.Where(x => x.BookId == item.BookId).First();
+                Shopping.RetailPrice = db.INVENTORies.Where(x => x.InventoryId == Book.InventoryId).First().RetailPrice;
+                Shopping.Title = Book.Title;
+                Shopping.Edition = Book.Edition;
+                Shopping.Rating = Book.Rating;
+                Shopping.Type = Book.Type;
+                Shopping.Description = Book.Description;
+                Shopping.ISBN = Book.ISBN;
+                Shopping.CopyRightDate = Book.CopyRightDate;
+                Shopping.Quantity = item.Quantity;
+
+                CartList.Add(Shopping);
+
+            }
             var cARTs = db.CARTs.Include(c => c.CUSTOMER);
-            return View(cARTs.ToList());
+            return View(CartList.ToList());
         }
 
         // GET: CARTs/Details/5
