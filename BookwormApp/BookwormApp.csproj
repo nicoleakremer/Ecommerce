@@ -187,6 +187,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PUBLISHERsController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="CREDIT_CARD.cs">
       <DependentUpon>dataModel.tt</DependentUpon>
     </Compile>
@@ -355,6 +356,8 @@
     <Content Include="Views\BOOK_CART\Edit.cshtml" />
     <Content Include="Views\BOOK_CART\Index.cshtml" />
     <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
