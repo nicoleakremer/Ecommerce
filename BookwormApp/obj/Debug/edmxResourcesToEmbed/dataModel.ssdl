@@ -47,7 +47,7 @@ warning 6002: The table/view 'Team4.dbo.BOOK_CART' does not have a primary key d
       <PropertyRef Name="CartId" />
     </Key>
     <Property Name="BookId" Type="int" Nullable="false" />
-    <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CartId" Type="int" Nullable="false" />
     <Property Name="Quantity" Type="int" />
   </EntityType>
   <EntityType Name="BOOKS">

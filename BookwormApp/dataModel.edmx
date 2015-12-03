@@ -52,7 +52,7 @@ warning 6002: The table/view 'Team4.dbo.BOOK_CART' does not have a primary key d
             <PropertyRef Name="CartId" />
           </Key>
           <Property Name="BookId" Type="int" Nullable="false" />
-          <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CartId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" />
         </EntityType>
         <EntityType Name="BOOKS">
@@ -1282,7 +1282,7 @@ warning 6002: The table/view 'Team4.dbo.ShowCustomersByLocationAndDate' does not
             <Parameter Name="To" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetUserID">
-          <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RemoveBookFromCart">

@@ -63,8 +63,10 @@ namespace BookwormApp.Controllers
         public ActionResult AddToCart(int? id)
         {
             int cust = 0;
+          
             cust = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First().CustomerId;
-            db.AddBookToCart(cust, id, 1 );
+            CART cart = db.CARTs.Where(x => x.CustomerId == cust).First();
+            db.AddBookToCart(cart.CartId, id, 1 );
             return RedirectToAction("Index", "CARTs", null);
         }
     

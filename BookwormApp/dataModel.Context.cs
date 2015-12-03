@@ -526,15 +526,13 @@ namespace BookwormApp
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetRevenueOverTimeFrame", fromParameter, toParameter);
         }
     
-        public virtual int GetUserID(string email)
+        public virtual int GetUserID(string email, ObjectParameter result)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
-            var resultParameter = new ObjectParameter("@Result", 0);
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetUserID", emailParameter, resultParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetUserID", emailParameter, result);
         }
     
         public virtual int RemoveBookFromCart(Nullable<int> cartId, Nullable<int> bookId)
