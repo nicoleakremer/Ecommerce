@@ -56,18 +56,23 @@ namespace BookwormApp.Controllers
 
                 books.Add(book);
             }
-
+            ViewBag.NoStock = TempData["NoStock"];
             return View(books.ToList());
         }
        
         public ActionResult AddToCart(int? id)
         {
             int cust = 0;
-          
             cust = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First().CustomerId;
             CART cart = db.CARTs.Where(x => x.CustomerId == cust).First();
-            db.AddBookToCart(cart.CartId, id, 1 );
-            return RedirectToAction("Index", "CARTs", null);
+           if( db.AddBookToCart(cart.CartId, id, 1 ) == -1){
+               TempData["NoStock"] = "<div class=\"alert alert-warning alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Warning!</strong> This book is out of stock!</div>";
+               return RedirectToAction("Index", "BOOKs");
+           }
+           else
+           {
+               return RedirectToAction("Index", "CARTs", null);
+           }
         }
     
     }

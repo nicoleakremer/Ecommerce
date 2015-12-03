@@ -157,7 +157,7 @@ namespace BookwormApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.Phone = "1-573-555-5555";
+               // model.Phone = "1-573-555-5555";
                 db.AddCustomer(model.Email,model.FirstName, model.LastName, model.DateOfBirth, model.Phone, model.Gender, model.State);
                 int id = 0;
                 id = db.CUSTOMERs.Where(x => x.Email == model.Email).First().CustomerId;
@@ -187,7 +187,7 @@ namespace BookwormApp.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
+           
             return View(model);
         }
 

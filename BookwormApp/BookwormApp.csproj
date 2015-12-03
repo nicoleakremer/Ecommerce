@@ -184,6 +184,7 @@
     <Compile Include="Controllers\BOOK_CARTController.cs" />
     <Compile Include="Controllers\CARTsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PUBLISHERsController.cs" />
@@ -236,9 +237,11 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Functions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PUBLISHER.cs">
       <DependentUpon>dataModel.tt</DependentUpon>
@@ -368,6 +371,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Checkout\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

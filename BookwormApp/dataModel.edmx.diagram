@@ -15,12 +15,12 @@
         <EntityTypeShape EntityType="dataModel.LOGIN" Width="1.5" PointX="7.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="dataModel.PUBLISHER" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="dataModel.sysdiagram" Width="1.5" PointX="7.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dataModel.BILLING" Width="1.5" PointX="9.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.BILLING" Width="1.5" PointX="11.125" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="dataModel.BOOK_AUTHOR" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dataModel.BOOK_CART" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dataModel.CREDIT_CARD" Width="1.5" PointX="9.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.CREDIT_CARD" Width="1.5" PointX="13.25" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="dataModel.EMPLOYEE" Width="1.5" PointX="5.75" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dataModel.SHIPPING" Width="1.5" PointX="9.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.SHIPPING" Width="1.5" PointX="11.125" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="dataModel.ShowCustomersByDateRange" Width="1.5" PointX="7.75" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="dataModel.ShowCustomersByLocationAndDate" Width="1.5" PointX="9.75" PointY="10.875" IsExpanded="true" />
         <AssociationConnector Association="dataModel.Author2IdFK" ManuallyRouted="false" />
