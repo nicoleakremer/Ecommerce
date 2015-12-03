@@ -33,10 +33,7 @@ namespace BookwormApp.Controllers
                 {
                     book.RetailPrice = 24.99M;
                 }
-
-
-
-               
+                book.BookId = item.BookId;
                 book.Title = item.Title;
                 book.Edition = item.Edition;
                 book.Rating = item.Rating;
@@ -46,9 +43,9 @@ namespace BookwormApp.Controllers
                 book.CopyRightDate = item.CopyRightDate;
                 if (Author == null)
                 {
-                    book.FirstName = "no author";
-                    book.LastName = "no author";
-                    book.Biography = "no biography";
+                    book.FirstName = "Author Unknown";
+                    book.LastName = "Author Unknown";
+                    book.Biography = "No Biography Available";
                 }
                 else
                 {
@@ -57,16 +54,21 @@ namespace BookwormApp.Controllers
                     book.Biography = Author.Biography;
                 }
 
-                
-
-
-
-
                 books.Add(book);
             }
 
-
             return View(books.ToList());
         }
+       
+        public ActionResult AddToCart(int? id)
+        {
+            int cust = 0;
+            cust = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First().CustomerId;
+            db.AddBookToCart(cust, id, 1 );
+            return RedirectToAction("Index", "CARTs", null);
+        }
+    
     }
+
+    
 }

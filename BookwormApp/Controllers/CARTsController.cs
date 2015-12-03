@@ -18,6 +18,7 @@ namespace BookwormApp.Controllers
         // GET: CARTs
         public ActionResult Index()
         {
+            //Session["Customer"] = Membership.GetEmail().Email;
             CUSTOMER customer = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First();
             CART cart = db.CARTs.Where(x => x.CustomerId == customer.CustomerId).First();
             var list = db.BOOK_CART.Where(x => x.CartId == cart.CartId);

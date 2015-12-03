@@ -12,13 +12,11 @@ namespace BookwormApp
     using System;
     using System.Collections.Generic;
     
-    public partial class BOOK_CART
+    public partial class ShowCustomersByLocationAndDate
     {
-        public int BookId { get; set; }
-        public int CartId { get; set; }
-        public Nullable<int> Quantity { get; set; }
-    
-        public virtual BOOK BOOK { get; set; }
-        public virtual CART CART { get; set; }
+        public string First_Name { get; set; }
+        public string Last_Name { get; set; }
+        public System.DateTime Date_Registered { get; set; }
+        public string State { get; set; }
     }
 }

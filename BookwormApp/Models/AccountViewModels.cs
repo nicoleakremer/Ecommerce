@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookwormApp.Models
@@ -80,6 +81,12 @@ namespace BookwormApp.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
         public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string Gender { get; set; }
+        public string State { get; set; }
+        public string Phone { get; set; }
     }
 
     public class ResetPasswordViewModel

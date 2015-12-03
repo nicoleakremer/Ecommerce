@@ -24,8 +24,8 @@ namespace BookwormApp
         public int CustomerId { get; set; }
         public byte[] IsActive { get; set; }
     
-        public virtual CUSTOMER CUSTOMER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOOK_CART> BOOK_CART { get; set; }
+        public virtual CUSTOMER CUSTOMER { get; set; }
     }
 }

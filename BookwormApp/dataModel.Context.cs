@@ -28,8 +28,10 @@ namespace BookwormApp
         }
     
         public virtual DbSet<AUTHOR> AUTHORs { get; set; }
+        public virtual DbSet<BOOK> BOOKS { get; set; }
         public virtual DbSet<CART> CARTs { get; set; }
         public virtual DbSet<CUSTOMER> CUSTOMERs { get; set; }
+        public virtual DbSet<GENRE> GENREs { get; set; }
         public virtual DbSet<INVENTORY> INVENTORies { get; set; }
         public virtual DbSet<INVOICE> INVOICEs { get; set; }
         public virtual DbSet<LOGIN> LOGINs { get; set; }
@@ -37,12 +39,12 @@ namespace BookwormApp
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<BILLING> BILLINGs { get; set; }
         public virtual DbSet<BOOK_AUTHOR> BOOK_AUTHOR { get; set; }
+        public virtual DbSet<BOOK_CART> BOOK_CART { get; set; }
         public virtual DbSet<CREDIT_CARD> CREDIT_CARD { get; set; }
         public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
         public virtual DbSet<SHIPPING> SHIPPINGs { get; set; }
-        public virtual DbSet<BOOK_CART> BOOK_CART { get; set; }
-        public virtual DbSet<BOOK> BOOKS { get; set; }
-        public virtual DbSet<GENRE> GENREs { get; set; }
+        public virtual DbSet<ShowCustomersByDateRange> ShowCustomersByDateRanges { get; set; }
+        public virtual DbSet<ShowCustomersByLocationAndDate> ShowCustomersByLocationAndDates { get; set; }
     
         public virtual int AddAuthor(string firstName, string lastName, string biography)
         {
@@ -212,7 +214,7 @@ namespace BookwormApp
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddCreditCard", cardTypeParameter, cardNumberParameter, nameOnCardParameter, expirationDateParameter, securityCodeParameter);
         }
     
-        public virtual int AddCustomer(string email, string firstName, string lastName, Nullable<System.DateTime> dateOfBirth, string homePhone, string workPhone, string gender, string state)
+        public virtual int AddCustomer(string email, string firstName, string lastName, Nullable<System.DateTime> dateOfBirth, string homePhone, string gender, string state)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("Email", email) :
@@ -234,10 +236,6 @@ namespace BookwormApp
                 new ObjectParameter("HomePhone", homePhone) :
                 new ObjectParameter("HomePhone", typeof(string));
     
-            var workPhoneParameter = workPhone != null ?
-                new ObjectParameter("WorkPhone", workPhone) :
-                new ObjectParameter("WorkPhone", typeof(string));
-    
             var genderParameter = gender != null ?
                 new ObjectParameter("Gender", gender) :
                 new ObjectParameter("Gender", typeof(string));
@@ -246,7 +244,7 @@ namespace BookwormApp
                 new ObjectParameter("State", state) :
                 new ObjectParameter("State", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddCustomer", emailParameter, firstNameParameter, lastNameParameter, dateOfBirthParameter, homePhoneParameter, workPhoneParameter, genderParameter, stateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddCustomer", emailParameter, firstNameParameter, lastNameParameter, dateOfBirthParameter, homePhoneParameter, genderParameter, stateParameter);
         }
     
         public virtual int AddEmployee(string employeeEmail, string password, Nullable<int> permissionLvl)
@@ -526,6 +524,17 @@ namespace BookwormApp
                 new ObjectParameter("To", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetRevenueOverTimeFrame", fromParameter, toParameter);
+        }
+    
+        public virtual int GetUserID(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+
+            var resultParameter = new ObjectParameter("@Result", 0);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetUserID", emailParameter, resultParameter);
         }
     
         public virtual int RemoveBookFromCart(Nullable<int> cartId, Nullable<int> bookId)

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="AUTHOR">
     <Key>
       <PropertyRef Name="AuthorId" />
@@ -100,8 +100,7 @@ warning 6002: The table/view 'Team4.dbo.CREDIT_CARD' does not have a primary key
     <Property Name="FirstName" Type="varchar" MaxLength="25" />
     <Property Name="LastName" Type="varchar" MaxLength="25" />
     <Property Name="DateOfBirth" Type="date" />
-    <Property Name="HomePhone" Type="varchar" MaxLength="15" />
-    <Property Name="WorkPhone" Type="varchar" MaxLength="15" />
+    <Property Name="Phone" Type="varchar" MaxLength="15" />
     <Property Name="Gender" Type="varchar" MaxLength="6" />
     <Property Name="State" Type="varchar" MaxLength="50" />
   </EntityType>
@@ -203,6 +202,29 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Team4.dbo.ShowCustomersByDateRange' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ShowCustomersByDateRange">
+    <Key>
+      <PropertyRef Name="First Name" />
+      <PropertyRef Name="Last Name" />
+      <PropertyRef Name="Date Registered" />
+    </Key>
+    <Property Name="First Name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Last Name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Date Registered" Type="date" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Team4.dbo.ShowCustomersByLocationAndDate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ShowCustomersByLocationAndDate">
+    <Key>
+      <PropertyRef Name="Date Registered" />
+    </Key>
+    <Property Name="First Name" Type="varchar" MaxLength="25" />
+    <Property Name="Last Name" Type="varchar" MaxLength="25" />
+    <Property Name="Date Registered" Type="date" Nullable="false" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
   </EntityType>
   <Association Name="Author2IdFK">
     <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
@@ -390,7 +412,6 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="LastName" Type="varchar" Mode="In" />
     <Parameter Name="DateOfBirth" Type="date" Mode="In" />
     <Parameter Name="HomePhone" Type="varchar" Mode="In" />
-    <Parameter Name="WorkPhone" Type="varchar" Mode="In" />
     <Parameter Name="Gender" Type="varchar" Mode="In" />
     <Parameter Name="State" Type="varchar" Mode="In" />
   </Function>
@@ -479,6 +500,10 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="From" Type="date" Mode="In" />
     <Parameter Name="To" Type="date" Mode="In" />
   </Function>
+  <Function Name="GetUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
   <Function Name="RemoveBookFromCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CartId" Type="int" Mode="In" />
     <Parameter Name="BookId" Type="int" Mode="In" />
@@ -518,6 +543,9 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ufn_GetUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="Update_Publisher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Name" Type="varchar" Mode="In" />
     <Parameter Name="Street" Type="varchar" Mode="In" />
@@ -583,7 +611,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="oldBookPrice" Type="money" Mode="In" />
     <Parameter Name="newBookPrice" Type="money" Mode="In" />
   </Function>
-  <EntityContainer Name="DataModelStoreContainer">
+  <EntityContainer Name="dataModelStoreContainer">
     <EntitySet Name="AUTHOR" EntityType="Self.AUTHOR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />
@@ -651,6 +679,21 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     [SHIPPING].[City] AS [City], 
     [SHIPPING].[Zip] AS [Zip]
     FROM [dbo].[SHIPPING] AS [SHIPPING]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ShowCustomersByDateRange" EntityType="Self.ShowCustomersByDateRange" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ShowCustomersByDateRange].[First Name] AS [First Name], 
+    [ShowCustomersByDateRange].[Last Name] AS [Last Name], 
+    [ShowCustomersByDateRange].[Date Registered] AS [Date Registered]
+    FROM [dbo].[ShowCustomersByDateRange] AS [ShowCustomersByDateRange]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ShowCustomersByLocationAndDate" EntityType="Self.ShowCustomersByLocationAndDate" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ShowCustomersByLocationAndDate].[First Name] AS [First Name], 
+    [ShowCustomersByLocationAndDate].[Last Name] AS [Last Name], 
+    [ShowCustomersByLocationAndDate].[Date Registered] AS [Date Registered], 
+    [ShowCustomersByLocationAndDate].[State] AS [State]
+    FROM [dbo].[ShowCustomersByLocationAndDate] AS [ShowCustomersByLocationAndDate]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="Author2IdFK" Association="Self.Author2IdFK">
       <End Role="AUTHOR" EntitySet="AUTHOR" />

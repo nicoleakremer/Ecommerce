@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BookwormApp.Models;
+using BookwormApp;
+using System.Data.SqlClient;
 
 namespace BookwormApp.Controllers
 {
@@ -155,8 +157,16 @@ namespace BookwormApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                model.Phone = "1-573-555-5555";
+                db.AddCustomer(model.Email,model.FirstName, model.LastName, model.DateOfBirth, model.Phone, model.Gender, model.State);
+                int id = 0;
+                id = db.CUSTOMERs.Where(x => x.Email == model.Email).First().CustomerId;
+
+                db.AddCart(id);
+                
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Id = id.ToString() };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                
                 if (result.Succeeded)
                 {
                     
@@ -165,7 +175,7 @@ namespace BookwormApp.Controllers
                     //Ends Here
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                                       
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

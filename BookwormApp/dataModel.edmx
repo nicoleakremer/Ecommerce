@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AUTHOR">
           <Key>
             <PropertyRef Name="AuthorId" />
@@ -105,8 +105,7 @@ warning 6002: The table/view 'Team4.dbo.CREDIT_CARD' does not have a primary key
           <Property Name="FirstName" Type="varchar" MaxLength="25" />
           <Property Name="LastName" Type="varchar" MaxLength="25" />
           <Property Name="DateOfBirth" Type="date" />
-          <Property Name="HomePhone" Type="varchar" MaxLength="15" />
-          <Property Name="WorkPhone" Type="varchar" MaxLength="15" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
           <Property Name="Gender" Type="varchar" MaxLength="6" />
           <Property Name="State" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -208,6 +207,29 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Team4.dbo.ShowCustomersByDateRange' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowCustomersByDateRange">
+          <Key>
+            <PropertyRef Name="First Name" />
+            <PropertyRef Name="Last Name" />
+            <PropertyRef Name="Date Registered" />
+          </Key>
+          <Property Name="First Name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Last Name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Date Registered" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Team4.dbo.ShowCustomersByLocationAndDate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowCustomersByLocationAndDate">
+          <Key>
+            <PropertyRef Name="Date Registered" />
+          </Key>
+          <Property Name="First Name" Type="varchar" MaxLength="25" />
+          <Property Name="Last Name" Type="varchar" MaxLength="25" />
+          <Property Name="Date Registered" Type="date" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="Author2IdFK">
           <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
@@ -395,7 +417,6 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Parameter Name="LastName" Type="varchar" Mode="In" />
           <Parameter Name="DateOfBirth" Type="date" Mode="In" />
           <Parameter Name="HomePhone" Type="varchar" Mode="In" />
-          <Parameter Name="WorkPhone" Type="varchar" Mode="In" />
           <Parameter Name="Gender" Type="varchar" Mode="In" />
           <Parameter Name="State" Type="varchar" Mode="In" />
         </Function>
@@ -484,6 +505,10 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Parameter Name="From" Type="date" Mode="In" />
           <Parameter Name="To" Type="date" Mode="In" />
         </Function>
+        <Function Name="GetUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Result" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="RemoveBookFromCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CartId" Type="int" Mode="In" />
           <Parameter Name="BookId" Type="int" Mode="In" />
@@ -523,6 +548,9 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ufn_GetUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Update_Publisher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name" Type="varchar" Mode="In" />
           <Parameter Name="Street" Type="varchar" Mode="In" />
@@ -588,7 +616,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Parameter Name="oldBookPrice" Type="money" Mode="In" />
           <Parameter Name="newBookPrice" Type="money" Mode="In" />
         </Function>
-        <EntityContainer Name="DataModelStoreContainer">
+        <EntityContainer Name="dataModelStoreContainer">
           <EntitySet Name="AUTHOR" EntityType="Self.AUTHOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />
@@ -657,6 +685,21 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     [SHIPPING].[Zip] AS [Zip]
     FROM [dbo].[SHIPPING] AS [SHIPPING]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ShowCustomersByDateRange" EntityType="Self.ShowCustomersByDateRange" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowCustomersByDateRange].[First Name] AS [First Name], 
+    [ShowCustomersByDateRange].[Last Name] AS [Last Name], 
+    [ShowCustomersByDateRange].[Date Registered] AS [Date Registered]
+    FROM [dbo].[ShowCustomersByDateRange] AS [ShowCustomersByDateRange]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowCustomersByLocationAndDate" EntityType="Self.ShowCustomersByLocationAndDate" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowCustomersByLocationAndDate].[First Name] AS [First Name], 
+    [ShowCustomersByLocationAndDate].[Last Name] AS [Last Name], 
+    [ShowCustomersByLocationAndDate].[Date Registered] AS [Date Registered], 
+    [ShowCustomersByLocationAndDate].[State] AS [State]
+    FROM [dbo].[ShowCustomersByLocationAndDate] AS [ShowCustomersByLocationAndDate]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="Author2IdFK" Association="Self.Author2IdFK">
             <End Role="AUTHOR" EntitySet="AUTHOR" />
             <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
@@ -705,7 +748,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AUTHOR">
           <Key>
             <PropertyRef Name="AuthorId" />
@@ -717,6 +760,26 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <NavigationProperty Name="BOOK_AUTHOR" Relationship="Self.Author2IdFK" FromRole="AUTHOR" ToRole="BOOK_AUTHOR" />
           <NavigationProperty Name="BOOK_AUTHOR1" Relationship="Self.AuthorIdFK" FromRole="AUTHOR" ToRole="BOOK_AUTHOR" />
         </EntityType>
+        <EntityType Name="BOOK">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublisherId" Type="Int32" Nullable="false" />
+          <Property Name="InventoryId" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Edition" Type="Int32" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ISBN" Type="Int32" />
+          <Property Name="CopyRightDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BOOK_AUTHOR" Relationship="Self.Book2IdFK" FromRole="BOOKS" ToRole="BOOK_AUTHOR" />
+          <NavigationProperty Name="BOOK_CART" Relationship="Self.BookCartIdFK" FromRole="BOOKS" ToRole="BOOK_CART" />
+          <NavigationProperty Name="BOOK_AUTHOR1" Relationship="Self.BookIdFK" FromRole="BOOKS" ToRole="BOOK_AUTHOR" />
+          <NavigationProperty Name="PUBLISHER" Relationship="Self.PublisherIdFK" FromRole="BOOKS" ToRole="PUBLISHER" />
+          <NavigationProperty Name="GENREs" Relationship="Self.GENRE_BOOK" FromRole="BOOKS" ToRole="GENRE" />
+        </EntityType>
         <EntityType Name="CART">
           <Key>
             <PropertyRef Name="CartId" />
@@ -724,24 +787,30 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Binary" MaxLength="1" FixedLength="true" />
+          <NavigationProperty Name="BOOK_CART" Relationship="Self.CartIdFK" FromRole="CART" ToRole="BOOK_CART" />
           <NavigationProperty Name="CUSTOMER" Relationship="Self.CustomerIdFK" FromRole="CART" ToRole="CUSTOMER" />
-          <NavigationProperty Name="BOOK_CART" Relationship="DataModel.CartIdFK" FromRole="CART" ToRole="BOOK_CART" />
         </EntityType>
         <EntityType Name="CUSTOMER">
           <Key>
             <PropertyRef Name="CustomerId" />
           </Key>
-          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
-          <Property Name="HomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="WorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CARTs" Relationship="Self.CustomerIdFK" FromRole="CUSTOMER" ToRole="CART" />
           <NavigationProperty Name="INVOICEs" Relationship="Self.CustomerInvoiceIdFK" FromRole="CUSTOMER" ToRole="INVOICE" />
+        </EntityType>
+        <EntityType Name="GENRE">
+          <Key>
+            <PropertyRef Name="GenreName" />
+          </Key>
+          <Property Name="GenreName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BOOKS" Relationship="Self.GENRE_BOOK" FromRole="GENRE" ToRole="BOOKS" />
         </EntityType>
         <EntityType Name="INVENTORY">
           <Key>
@@ -785,7 +854,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="BOOKS" Relationship="DataModel.PublisherIdFK" FromRole="PUBLISHER" ToRole="BOOK" />
+          <NavigationProperty Name="BOOKS" Relationship="Self.PublisherIdFK" FromRole="PUBLISHER" ToRole="BOOKS" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -824,9 +893,20 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Property Name="AuthorId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AUTHOR" Relationship="Self.Author2IdFK" FromRole="BOOK_AUTHOR" ToRole="AUTHOR" />
           <NavigationProperty Name="AUTHOR1" Relationship="Self.AuthorIdFK" FromRole="BOOK_AUTHOR" ToRole="AUTHOR" />
-          <NavigationProperty Name="BOOK" Relationship="DataModel.Book2IdFK" FromRole="BOOK_AUTHOR" ToRole="BOOK" />
-          <NavigationProperty Name="BOOK1" Relationship="DataModel.BookIdFK" FromRole="BOOK_AUTHOR" ToRole="BOOK" />
-          </EntityType>
+          <NavigationProperty Name="BOOK" Relationship="Self.Book2IdFK" FromRole="BOOK_AUTHOR" ToRole="BOOKS" />
+          <NavigationProperty Name="BOOK1" Relationship="Self.BookIdFK" FromRole="BOOK_AUTHOR" ToRole="BOOKS" />
+        </EntityType>
+        <EntityType Name="BOOK_CART">
+          <Key>
+            <PropertyRef Name="BookId" />
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="BOOK" Relationship="Self.BookCartIdFK" FromRole="BOOK_CART" ToRole="BOOKS" />
+          <NavigationProperty Name="CART" Relationship="Self.CartIdFK" FromRole="BOOK_CART" ToRole="CART" />
+        </EntityType>
         <EntityType Name="CREDIT_CARD">
           <Key>
             <PropertyRef Name="CardId" />
@@ -870,6 +950,25 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Zip" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="ShowCustomersByDateRange">
+          <Key>
+            <PropertyRef Name="First_Name" />
+            <PropertyRef Name="Last_Name" />
+            <PropertyRef Name="Date_Registered" />
+          </Key>
+          <Property Name="First_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date_Registered" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="ShowCustomersByLocationAndDate">
+          <Key>
+            <PropertyRef Name="Date_Registered" />
+          </Key>
+          <Property Name="First_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Registered" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <Association Name="Author2IdFK">
           <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
           <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
@@ -891,6 +990,66 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </Principal>
             <Dependent Role="BOOK_AUTHOR">
               <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Book2IdFK">
+          <End Role="BOOKS" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BOOK_AUTHOR">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookCartIdFK">
+          <End Role="BOOKS" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="BOOK_CART" Type="Self.BOOK_CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BOOK_CART">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookIdFK">
+          <End Role="BOOKS" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BOOK_AUTHOR">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PublisherIdFK">
+          <End Role="PUBLISHER" Type="Self.PUBLISHER" Multiplicity="1" />
+          <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PUBLISHER">
+              <PropertyRef Name="PublisherId" />
+            </Principal>
+            <Dependent Role="BOOKS">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CartIdFK">
+          <End Role="CART" Type="Self.CART" Multiplicity="1" />
+          <End Role="BOOK_CART" Type="Self.BOOK_CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CART">
+              <PropertyRef Name="CartId" />
+            </Principal>
+            <Dependent Role="BOOK_CART">
+              <PropertyRef Name="CartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -918,10 +1077,16 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="GENRE_BOOK">
+          <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
+          <End Role="GENRE" Type="Self.GENRE" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="DataEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AUTHORs" EntityType="Self.AUTHOR" />
+          <EntitySet Name="BOOKS" EntityType="Self.BOOK" />
           <EntitySet Name="CARTs" EntityType="Self.CART" />
           <EntitySet Name="CUSTOMERs" EntityType="Self.CUSTOMER" />
+          <EntitySet Name="GENREs" EntityType="Self.GENRE" />
           <EntitySet Name="INVENTORies" EntityType="Self.INVENTORY" />
           <EntitySet Name="INVOICEs" EntityType="Self.INVOICE" />
           <EntitySet Name="LOGINs" EntityType="Self.LOGIN" />
@@ -929,9 +1094,12 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="BILLINGs" EntityType="Self.BILLING" />
           <EntitySet Name="BOOK_AUTHOR" EntityType="Self.BOOK_AUTHOR" />
+          <EntitySet Name="BOOK_CART" EntityType="Self.BOOK_CART" />
           <EntitySet Name="CREDIT_CARD" EntityType="Self.CREDIT_CARD" />
           <EntitySet Name="EMPLOYEEs" EntityType="Self.EMPLOYEE" />
           <EntitySet Name="SHIPPINGs" EntityType="Self.SHIPPING" />
+          <EntitySet Name="ShowCustomersByDateRanges" EntityType="Self.ShowCustomersByDateRange" />
+          <EntitySet Name="ShowCustomersByLocationAndDates" EntityType="Self.ShowCustomersByLocationAndDate" />
           <AssociationSet Name="Author2IdFK" Association="Self.Author2IdFK">
             <End Role="AUTHOR" EntitySet="AUTHORs" />
             <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
@@ -940,6 +1108,26 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             <End Role="AUTHOR" EntitySet="AUTHORs" />
             <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
           </AssociationSet>
+          <AssociationSet Name="Book2IdFK" Association="Self.Book2IdFK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+          </AssociationSet>
+          <AssociationSet Name="BookCartIdFK" Association="Self.BookCartIdFK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="BOOK_CART" EntitySet="BOOK_CART" />
+          </AssociationSet>
+          <AssociationSet Name="BookIdFK" Association="Self.BookIdFK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+          </AssociationSet>
+          <AssociationSet Name="PublisherIdFK" Association="Self.PublisherIdFK">
+            <End Role="PUBLISHER" EntitySet="PUBLISHERs" />
+            <End Role="BOOKS" EntitySet="BOOKS" />
+          </AssociationSet>
+          <AssociationSet Name="CartIdFK" Association="Self.CartIdFK">
+            <End Role="CART" EntitySet="CARTs" />
+            <End Role="BOOK_CART" EntitySet="BOOK_CART" />
+          </AssociationSet>
           <AssociationSet Name="CustomerIdFK" Association="Self.CustomerIdFK">
             <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
             <End Role="CART" EntitySet="CARTs" />
@@ -947,6 +1135,10 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <AssociationSet Name="CustomerInvoiceIdFK" Association="Self.CustomerInvoiceIdFK">
             <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
             <End Role="INVOICE" EntitySet="INVOICEs" />
+          </AssociationSet>
+          <AssociationSet Name="GENRE_BOOK" Association="Self.GENRE_BOOK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="GENRE" EntitySet="GENREs" />
           </AssociationSet>
           <FunctionImport Name="AddAuthor">
             <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -1002,7 +1194,6 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             <Parameter Name="LastName" Mode="In" Type="String" />
             <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
             <Parameter Name="HomePhone" Mode="In" Type="String" />
-            <Parameter Name="WorkPhone" Mode="In" Type="String" />
             <Parameter Name="Gender" Mode="In" Type="String" />
             <Parameter Name="State" Mode="In" Type="String" />
           </FunctionImport>
@@ -1080,15 +1271,19 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <FunctionImport Name="GetBooksByPublisher" ReturnType="Collection(Int32)">
           <Parameter Name="PublisherId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetCustomerHistory" ReturnType="Collection(DataModel.GetCustomerHistory_Result)">
+          <FunctionImport Name="GetCustomerHistory" ReturnType="Collection(dataModel.GetCustomerHistory_Result)">
           <Parameter Name="CustomerId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetPublisherSalesByDay" ReturnType="Collection(DataModel.GetPublisherSalesByDay_Result)">
+          <FunctionImport Name="GetPublisherSalesByDay" ReturnType="Collection(dataModel.GetPublisherSalesByDay_Result)">
           <Parameter Name="PublisherId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetRevenueOverTimeFrame" ReturnType="Collection(Decimal)">
             <Parameter Name="From" Mode="In" Type="DateTime" />
             <Parameter Name="To" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetUserID">
+          <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="Result" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RemoveBookFromCart">
             <Parameter Name="CartId" Mode="In" Type="Int32" />
@@ -1115,11 +1310,11 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DataModel.sp_helpdiagramdefinition_Result)">
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(dataModel.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DataModel.sp_helpdiagrams_Result)">
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(dataModel.sp_helpdiagrams_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1194,33 +1389,6 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             <Parameter Name="oldBookPrice" Mode="In" Type="Decimal" />
             <Parameter Name="newBookPrice" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <EntitySet Name="BOOK_CART" EntityType="DataModel.BOOK_CART" />
-          <AssociationSet Name="CartIdFK" Association="DataModel.CartIdFK">
-            <End Role="CART" EntitySet="CARTs" />
-            <End Role="BOOK_CART" EntitySet="BOOK_CART" />
-          </AssociationSet>
-          <EntitySet Name="BOOKS" EntityType="DataModel.BOOK" />
-          <EntitySet Name="GENREs" EntityType="DataModel.GENRE" />
-          <AssociationSet Name="Book2IdFK" Association="DataModel.Book2IdFK">
-            <End Role="BOOK" EntitySet="BOOKS" />
-            <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
-          </AssociationSet>
-          <AssociationSet Name="BookCartIdFK" Association="DataModel.BookCartIdFK">
-            <End Role="BOOK" EntitySet="BOOKS" />
-            <End Role="BOOK_CART" EntitySet="BOOK_CART" />
-          </AssociationSet>
-          <AssociationSet Name="BookIdFK" Association="DataModel.BookIdFK">
-            <End Role="BOOK" EntitySet="BOOKS" />
-            <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
-          </AssociationSet>
-          <AssociationSet Name="PublisherIdFK" Association="DataModel.PublisherIdFK">
-            <End Role="PUBLISHER" EntitySet="PUBLISHERs" />
-            <End Role="BOOK" EntitySet="BOOKS" />
-          </AssociationSet>
-          <AssociationSet Name="GENRE_BOOK" Association="DataModel.GENRE_BOOK">
-            <End Role="BOOK" EntitySet="BOOKS" />
-            <End Role="GENRE" EntitySet="GENREs" />
-          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetCustomerHistory_Result">
           <Property Type="String" Name="First_Name" Nullable="true" MaxLength="25" />
@@ -1243,116 +1411,14 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="BOOK_CART">
-          <Key>
-            <PropertyRef Name="BookId" />
-            <PropertyRef Name="CartId" />
-          </Key>
-          <Property Name="BookId" Type="Int32" Nullable="false" />
-          <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="CART" Relationship="DataModel.CartIdFK" FromRole="BOOK_CART" ToRole="CART" />
-          <NavigationProperty Name="BOOK" Relationship="DataModel.BookCartIdFK" FromRole="BOOK_CART" ToRole="BOOK" />
-        </EntityType>
-        <Association Name="CartIdFK">
-          <End Type="DataModel.CART" Role="CART" Multiplicity="1" />
-          <End Type="DataModel.BOOK_CART" Role="BOOK_CART" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CART">
-              <PropertyRef Name="CartId" />
-            </Principal>
-            <Dependent Role="BOOK_CART">
-              <PropertyRef Name="CartId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="BOOK">
-          <Key>
-            <PropertyRef Name="BookId" />
-          </Key>
-          <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PublisherId" Type="Int32" Nullable="false" />
-          <Property Name="InventoryId" Type="Int32" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Edition" Type="Int32" />
-          <Property Name="Rating" Type="Int32" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ISBN" Type="Int32" />
-          <Property Name="CopyRightDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="BOOK_AUTHOR" Relationship="DataModel.Book2IdFK" FromRole="BOOK" ToRole="BOOK_AUTHOR" />
-          <NavigationProperty Name="BOOK_CART" Relationship="DataModel.BookCartIdFK" FromRole="BOOK" ToRole="BOOK_CART" />
-          <NavigationProperty Name="BOOK_AUTHOR1" Relationship="DataModel.BookIdFK" FromRole="BOOK" ToRole="BOOK_AUTHOR" />
-          <NavigationProperty Name="PUBLISHER" Relationship="DataModel.PublisherIdFK" FromRole="BOOK" ToRole="PUBLISHER" />
-          <NavigationProperty Name="GENREs" Relationship="DataModel.GENRE_BOOK" FromRole="BOOK" ToRole="GENRE" />
-        </EntityType>
-        <EntityType Name="GENRE">
-          <Key>
-            <PropertyRef Name="GenreName" />
-          </Key>
-          <Property Name="GenreName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="BOOKS" Relationship="DataModel.GENRE_BOOK" FromRole="GENRE" ToRole="BOOK" />
-        </EntityType>
-        <Association Name="Book2IdFK">
-          <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="1" />
-          <End Type="DataModel.BOOK_AUTHOR" Role="BOOK_AUTHOR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BOOK">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="BOOK_AUTHOR">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="BookCartIdFK">
-          <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="1" />
-          <End Type="DataModel.BOOK_CART" Role="BOOK_CART" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BOOK">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="BOOK_CART">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="BookIdFK">
-          <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="1" />
-          <End Type="DataModel.BOOK_AUTHOR" Role="BOOK_AUTHOR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BOOK">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="BOOK_AUTHOR">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PublisherIdFK">
-          <End Type="DataModel.PUBLISHER" Role="PUBLISHER" Multiplicity="1" />
-          <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PUBLISHER">
-              <PropertyRef Name="PublisherId" />
-            </Principal>
-            <Dependent Role="BOOK">
-              <PropertyRef Name="PublisherId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="GENRE_BOOK">
-          <End Type="DataModel.BOOK" Role="BOOK" Multiplicity="*" />
-          <End Type="DataModel.GENRE" Role="GENRE" Multiplicity="*" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataEntities">
+        <EntityContainerMapping StorageEntityContainer="dataModelStoreContainer" CdmEntityContainer="DataEntities">
           <EntitySetMapping Name="AUTHORs">
-            <EntityTypeMapping TypeName="DataModel.AUTHOR">
+            <EntityTypeMapping TypeName="dataModel.AUTHOR">
               <MappingFragment StoreEntitySet="AUTHOR">
                 <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -1361,8 +1427,24 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BOOKS">
+            <EntityTypeMapping TypeName="dataModel.BOOK">
+              <MappingFragment StoreEntitySet="BOOKS">
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+                <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="CopyRightDate" ColumnName="CopyRightDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CARTs">
-            <EntityTypeMapping TypeName="DataModel.CART">
+            <EntityTypeMapping TypeName="dataModel.CART">
               <MappingFragment StoreEntitySet="CART">
                 <ScalarProperty Name="CartId" ColumnName="CartId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -1371,22 +1453,28 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CUSTOMERs">
-            <EntityTypeMapping TypeName="DataModel.CUSTOMER">
+            <EntityTypeMapping TypeName="dataModel.CUSTOMER">
               <MappingFragment StoreEntitySet="CUSTOMER">
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
-                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="State" ColumnName="State" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="GENREs">
+            <EntityTypeMapping TypeName="dataModel.GENRE">
+              <MappingFragment StoreEntitySet="GENRE">
+                <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="INVENTORies">
-            <EntityTypeMapping TypeName="DataModel.INVENTORY">
+            <EntityTypeMapping TypeName="dataModel.INVENTORY">
               <MappingFragment StoreEntitySet="INVENTORY">
                 <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
                 <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
@@ -1396,7 +1484,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="INVOICEs">
-            <EntityTypeMapping TypeName="DataModel.INVOICE">
+            <EntityTypeMapping TypeName="dataModel.INVOICE">
               <MappingFragment StoreEntitySet="INVOICE">
                 <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -1409,7 +1497,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LOGINs">
-            <EntityTypeMapping TypeName="DataModel.LOGIN">
+            <EntityTypeMapping TypeName="dataModel.LOGIN">
               <MappingFragment StoreEntitySet="LOGIN">
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1418,7 +1506,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PUBLISHERs">
-            <EntityTypeMapping TypeName="DataModel.PUBLISHER">
+            <EntityTypeMapping TypeName="dataModel.PUBLISHER">
               <MappingFragment StoreEntitySet="PUBLISHER">
                 <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1432,7 +1520,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DataModel.sysdiagram">
+            <EntityTypeMapping TypeName="dataModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1443,7 +1531,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BILLINGs">
-            <EntityTypeMapping TypeName="DataModel.BILLING">
+            <EntityTypeMapping TypeName="dataModel.BILLING">
               <MappingFragment StoreEntitySet="BILLING">
                 <ScalarProperty Name="BillingId" ColumnName="BillingId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -1456,15 +1544,24 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BOOK_AUTHOR">
-            <EntityTypeMapping TypeName="DataModel.BOOK_AUTHOR">
+            <EntityTypeMapping TypeName="dataModel.BOOK_AUTHOR">
               <MappingFragment StoreEntitySet="BOOK_AUTHOR">
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BOOK_CART">
+            <EntityTypeMapping TypeName="dataModel.BOOK_CART">
+              <MappingFragment StoreEntitySet="BOOK_CART">
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CREDIT_CARD">
-            <EntityTypeMapping TypeName="DataModel.CREDIT_CARD">
+            <EntityTypeMapping TypeName="dataModel.CREDIT_CARD">
               <MappingFragment StoreEntitySet="CREDIT_CARD">
                 <ScalarProperty Name="CardId" ColumnName="CardId" />
                 <ScalarProperty Name="CardType" ColumnName="CardType" />
@@ -1476,7 +1573,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EMPLOYEEs">
-            <EntityTypeMapping TypeName="DataModel.EMPLOYEE">
+            <EntityTypeMapping TypeName="dataModel.EMPLOYEE">
               <MappingFragment StoreEntitySet="EMPLOYEE">
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
@@ -1486,7 +1583,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SHIPPINGs">
-            <EntityTypeMapping TypeName="DataModel.SHIPPING">
+            <EntityTypeMapping TypeName="dataModel.SHIPPING">
               <MappingFragment StoreEntitySet="SHIPPING">
                 <ScalarProperty Name="ShippingId" ColumnName="ShippingId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -1497,34 +1594,61 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AddAuthor" FunctionName="DataModel.Store.AddAuthor" />
-          <FunctionImportMapping FunctionImportName="AddBilling" FunctionName="DataModel.Store.AddBilling" />
-          <FunctionImportMapping FunctionImportName="AddBook" FunctionName="DataModel.Store.AddBook" />
-          <FunctionImportMapping FunctionImportName="AddBook_Author" FunctionName="DataModel.Store.AddBook_Author" />
-          <FunctionImportMapping FunctionImportName="AddBookToCart" FunctionName="DataModel.Store.AddBookToCart" />
-          <FunctionImportMapping FunctionImportName="AddBookToInventory" FunctionName="DataModel.Store.AddBookToInventory" />
-          <FunctionImportMapping FunctionImportName="AddCart" FunctionName="DataModel.Store.AddCart" />
-          <FunctionImportMapping FunctionImportName="AddCreditCard" FunctionName="DataModel.Store.AddCreditCard" />
-          <FunctionImportMapping FunctionImportName="AddCustomer" FunctionName="DataModel.Store.AddCustomer" />
-          <FunctionImportMapping FunctionImportName="AddEmployee" FunctionName="DataModel.Store.AddEmployee" />
-          <FunctionImportMapping FunctionImportName="AddGenre" FunctionName="DataModel.Store.AddGenre" />
-          <FunctionImportMapping FunctionImportName="AddGenre_Book" FunctionName="DataModel.Store.AddGenre_Book" />
-          <FunctionImportMapping FunctionImportName="AddPublisher" FunctionName="DataModel.Store.AddPublisher" />
-          <FunctionImportMapping FunctionImportName="AddShipping" FunctionName="DataModel.Store.AddShipping" />
-          <FunctionImportMapping FunctionImportName="AddUserAsCustomer" FunctionName="DataModel.Store.AddUserAsCustomer" />
-          <FunctionImportMapping FunctionImportName="AddUserAsEmployee" FunctionName="DataModel.Store.AddUserAsEmployee" />
-          <FunctionImportMapping FunctionImportName="CreateInvoice" FunctionName="DataModel.Store.CreateInvoice" />
-          <FunctionImportMapping FunctionImportName="DeleteCustomer" FunctionName="DataModel.Store.DeleteCustomer" />
-          <FunctionImportMapping FunctionImportName="DeleteEmployee" FunctionName="DataModel.Store.DeleteEmployee" />
-          <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="DataModel.Store.DeleteUser" />
-          <FunctionImportMapping FunctionImportName="DisableCart" FunctionName="DataModel.Store.DisableCart" />
-          <FunctionImportMapping FunctionImportName="GetBookAuthors" FunctionName="DataModel.Store.GetBookAuthors" />
-          <FunctionImportMapping FunctionImportName="GetBookGenres" FunctionName="DataModel.Store.GetBookGenres" />
-          <FunctionImportMapping FunctionImportName="GetBooksByGenre" FunctionName="DataModel.Store.GetBooksByGenre" />
-          <FunctionImportMapping FunctionImportName="GetBooksByPublisher" FunctionName="DataModel.Store.GetBooksByPublisher" />
-          <FunctionImportMapping FunctionImportName="GetCustomerHistory" FunctionName="DataModel.Store.GetCustomerHistory">
+          <EntitySetMapping Name="ShowCustomersByDateRanges">
+            <EntityTypeMapping TypeName="dataModel.ShowCustomersByDateRange">
+              <MappingFragment StoreEntitySet="ShowCustomersByDateRange">
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+                <ScalarProperty Name="Date_Registered" ColumnName="Date Registered" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowCustomersByLocationAndDates">
+            <EntityTypeMapping TypeName="dataModel.ShowCustomersByLocationAndDate">
+              <MappingFragment StoreEntitySet="ShowCustomersByLocationAndDate">
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+                <ScalarProperty Name="Date_Registered" ColumnName="Date Registered" />
+                <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="GENRE_BOOK" TypeName="dataModel.GENRE_BOOK" StoreEntitySet="GENRE_BOOK">
+            <EndProperty Name="BOOKS">
+              <ScalarProperty Name="BookId" ColumnName="BookId" />
+            </EndProperty>
+            <EndProperty Name="GENRE">
+              <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="AddAuthor" FunctionName="dataModel.Store.AddAuthor" />
+          <FunctionImportMapping FunctionImportName="AddBilling" FunctionName="dataModel.Store.AddBilling" />
+          <FunctionImportMapping FunctionImportName="AddBook" FunctionName="dataModel.Store.AddBook" />
+          <FunctionImportMapping FunctionImportName="AddBook_Author" FunctionName="dataModel.Store.AddBook_Author" />
+          <FunctionImportMapping FunctionImportName="AddBookToCart" FunctionName="dataModel.Store.AddBookToCart" />
+          <FunctionImportMapping FunctionImportName="AddBookToInventory" FunctionName="dataModel.Store.AddBookToInventory" />
+          <FunctionImportMapping FunctionImportName="AddCart" FunctionName="dataModel.Store.AddCart" />
+          <FunctionImportMapping FunctionImportName="AddCreditCard" FunctionName="dataModel.Store.AddCreditCard" />
+          <FunctionImportMapping FunctionImportName="AddCustomer" FunctionName="dataModel.Store.AddCustomer" />
+          <FunctionImportMapping FunctionImportName="AddEmployee" FunctionName="dataModel.Store.AddEmployee" />
+          <FunctionImportMapping FunctionImportName="AddGenre" FunctionName="dataModel.Store.AddGenre" />
+          <FunctionImportMapping FunctionImportName="AddGenre_Book" FunctionName="dataModel.Store.AddGenre_Book" />
+          <FunctionImportMapping FunctionImportName="AddPublisher" FunctionName="dataModel.Store.AddPublisher" />
+          <FunctionImportMapping FunctionImportName="AddShipping" FunctionName="dataModel.Store.AddShipping" />
+          <FunctionImportMapping FunctionImportName="AddUserAsCustomer" FunctionName="dataModel.Store.AddUserAsCustomer" />
+          <FunctionImportMapping FunctionImportName="AddUserAsEmployee" FunctionName="dataModel.Store.AddUserAsEmployee" />
+          <FunctionImportMapping FunctionImportName="CreateInvoice" FunctionName="dataModel.Store.CreateInvoice" />
+          <FunctionImportMapping FunctionImportName="DeleteCustomer" FunctionName="dataModel.Store.DeleteCustomer" />
+          <FunctionImportMapping FunctionImportName="DeleteEmployee" FunctionName="dataModel.Store.DeleteEmployee" />
+          <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="dataModel.Store.DeleteUser" />
+          <FunctionImportMapping FunctionImportName="DisableCart" FunctionName="dataModel.Store.DisableCart" />
+          <FunctionImportMapping FunctionImportName="GetBookAuthors" FunctionName="dataModel.Store.GetBookAuthors" />
+          <FunctionImportMapping FunctionImportName="GetBookGenres" FunctionName="dataModel.Store.GetBookGenres" />
+          <FunctionImportMapping FunctionImportName="GetBooksByGenre" FunctionName="dataModel.Store.GetBooksByGenre" />
+          <FunctionImportMapping FunctionImportName="GetBooksByPublisher" FunctionName="dataModel.Store.GetBooksByPublisher" />
+          <FunctionImportMapping FunctionImportName="GetCustomerHistory" FunctionName="dataModel.Store.GetCustomerHistory">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="DataModel.GetCustomerHistory_Result">
+              <ComplexTypeMapping TypeName="dataModel.GetCustomerHistory_Result">
                 <ScalarProperty Name="First_Name" ColumnName="First Name" />
                 <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
                 <ScalarProperty Name="Book" ColumnName="Book" />
@@ -1532,31 +1656,32 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetPublisherSalesByDay" FunctionName="DataModel.Store.GetPublisherSalesByDay">
+          <FunctionImportMapping FunctionImportName="GetPublisherSalesByDay" FunctionName="dataModel.Store.GetPublisherSalesByDay">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="DataModel.GetPublisherSalesByDay_Result">
+              <ComplexTypeMapping TypeName="dataModel.GetPublisherSalesByDay_Result">
                 <ScalarProperty Name="Revenue" ColumnName="Revenue" />
                 <ScalarProperty Name="Day" ColumnName="Day" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetRevenueOverTimeFrame" FunctionName="DataModel.Store.GetRevenueOverTimeFrame" />
-          <FunctionImportMapping FunctionImportName="RemoveBookFromCart" FunctionName="DataModel.Store.RemoveBookFromCart" />
-          <FunctionImportMapping FunctionImportName="RemoveQuantityOfBookFromCart" FunctionName="DataModel.Store.RemoveQuantityOfBookFromCart" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DataModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DataModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DataModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DataModel.Store.sp_helpdiagramdefinition">
+          <FunctionImportMapping FunctionImportName="GetRevenueOverTimeFrame" FunctionName="dataModel.Store.GetRevenueOverTimeFrame" />
+          <FunctionImportMapping FunctionImportName="GetUserID" FunctionName="dataModel.Store.GetUserID" />
+          <FunctionImportMapping FunctionImportName="RemoveBookFromCart" FunctionName="dataModel.Store.RemoveBookFromCart" />
+          <FunctionImportMapping FunctionImportName="RemoveQuantityOfBookFromCart" FunctionName="dataModel.Store.RemoveQuantityOfBookFromCart" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="dataModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="dataModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="dataModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="dataModel.Store.sp_helpdiagramdefinition">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="DataModel.sp_helpdiagramdefinition_Result">
+              <ComplexTypeMapping TypeName="dataModel.sp_helpdiagramdefinition_Result">
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DataModel.Store.sp_helpdiagrams">
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="dataModel.Store.sp_helpdiagrams">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="DataModel.sp_helpdiagrams_Result">
+              <ComplexTypeMapping TypeName="dataModel.sp_helpdiagrams_Result">
                 <ScalarProperty Name="Database" ColumnName="Database" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -1565,59 +1690,19 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DataModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DataModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="Update_Publisher" FunctionName="DataModel.Store.Update_Publisher" />
-          <FunctionImportMapping FunctionImportName="UpdateBilling" FunctionName="DataModel.Store.UpdateBilling" />
-          <FunctionImportMapping FunctionImportName="UpdateCreditCard" FunctionName="DataModel.Store.UpdateCreditCard" />
-          <FunctionImportMapping FunctionImportName="UpdateCustomerEmail" FunctionName="DataModel.Store.UpdateCustomerEmail" />
-          <FunctionImportMapping FunctionImportName="UpdateEmployeeEmail" FunctionName="DataModel.Store.UpdateEmployeeEmail" />
-          <FunctionImportMapping FunctionImportName="UpdateEmployeePassword" FunctionName="DataModel.Store.UpdateEmployeePassword" />
-          <FunctionImportMapping FunctionImportName="UpdatePriceOfBook" FunctionName="DataModel.Store.UpdatePriceOfBook" />
-          <FunctionImportMapping FunctionImportName="UpdateShipping" FunctionName="DataModel.Store.UpdateShipping" />
-          <FunctionImportMapping FunctionImportName="UpdateUserEmail" FunctionName="DataModel.Store.UpdateUserEmail" />
-          <FunctionImportMapping FunctionImportName="UpdateUserPassword" FunctionName="DataModel.Store.UpdateUserPassword" />
-          <FunctionImportMapping FunctionImportName="UpdateWholeSalePriceOfBook" FunctionName="DataModel.Store.UpdateWholeSalePriceOfBook" />
-          <EntitySetMapping Name="BOOK_CART">
-            <EntityTypeMapping TypeName="DataModel.BOOK_CART">
-              <MappingFragment StoreEntitySet="BOOK_CART">
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="CartId" ColumnName="CartId" />
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BOOKS">
-            <EntityTypeMapping TypeName="DataModel.BOOK">
-              <MappingFragment StoreEntitySet="BOOKS">
-                <ScalarProperty Name="CopyRightDate" ColumnName="CopyRightDate" />
-                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
-                <ScalarProperty Name="Edition" ColumnName="Edition" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
-                <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GENREs">
-            <EntityTypeMapping TypeName="DataModel.GENRE">
-              <MappingFragment StoreEntitySet="GENRE">
-                <ScalarProperty Name="GenreName" ColumnName="GenreName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="GENRE_BOOK" TypeName="DataModel.GENRE_BOOK" StoreEntitySet="GENRE_BOOK">
-            <EndProperty Name="GENRE">
-              <ScalarProperty Name="GenreName" ColumnName="GenreName" />
-            </EndProperty>
-            <EndProperty Name="BOOK">
-              <ScalarProperty Name="BookId" ColumnName="BookId" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="dataModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="dataModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="Update_Publisher" FunctionName="dataModel.Store.Update_Publisher" />
+          <FunctionImportMapping FunctionImportName="UpdateBilling" FunctionName="dataModel.Store.UpdateBilling" />
+          <FunctionImportMapping FunctionImportName="UpdateCreditCard" FunctionName="dataModel.Store.UpdateCreditCard" />
+          <FunctionImportMapping FunctionImportName="UpdateCustomerEmail" FunctionName="dataModel.Store.UpdateCustomerEmail" />
+          <FunctionImportMapping FunctionImportName="UpdateEmployeeEmail" FunctionName="dataModel.Store.UpdateEmployeeEmail" />
+          <FunctionImportMapping FunctionImportName="UpdateEmployeePassword" FunctionName="dataModel.Store.UpdateEmployeePassword" />
+          <FunctionImportMapping FunctionImportName="UpdatePriceOfBook" FunctionName="dataModel.Store.UpdatePriceOfBook" />
+          <FunctionImportMapping FunctionImportName="UpdateShipping" FunctionName="dataModel.Store.UpdateShipping" />
+          <FunctionImportMapping FunctionImportName="UpdateUserEmail" FunctionName="dataModel.Store.UpdateUserEmail" />
+          <FunctionImportMapping FunctionImportName="UpdateUserPassword" FunctionName="dataModel.Store.UpdateUserPassword" />
+          <FunctionImportMapping FunctionImportName="UpdateWholeSalePriceOfBook" FunctionName="dataModel.Store.UpdateWholeSalePriceOfBook" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

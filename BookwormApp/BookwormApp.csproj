@@ -236,6 +236,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Functions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -243,6 +244,12 @@
       <DependentUpon>dataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SHIPPING.cs">
+      <DependentUpon>dataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShowCustomersByDateRange.cs">
+      <DependentUpon>dataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShowCustomersByLocationAndDate.cs">
       <DependentUpon>dataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
