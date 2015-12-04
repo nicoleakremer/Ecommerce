@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="AUTHOR">
     <Key>
       <PropertyRef Name="AuthorId" />
@@ -73,20 +73,14 @@ warning 6002: The table/view 'Team4.dbo.BOOK_CART' does not have a primary key d
     <Property Name="CustomerId" Type="int" Nullable="false" />
     <Property Name="IsActive" Type="binary" MaxLength="1" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Team4.dbo.CREDIT_CARD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="CREDIT_CARD">
     <Key>
       <PropertyRef Name="CardId" />
-      <PropertyRef Name="CardType" />
-      <PropertyRef Name="CardNumber" />
-      <PropertyRef Name="NameOnCard" />
-      <PropertyRef Name="ExpirationDate" />
-      <PropertyRef Name="SecurityCode" />
     </Key>
     <Property Name="CardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerId" Type="int" />
     <Property Name="CardType" Type="varchar" MaxLength="16" Nullable="false" />
-    <Property Name="CardNumber" Type="bigint" Nullable="false" />
+    <Property Name="CardNumber" Type="varchar" MaxLength="16" Nullable="false" />
     <Property Name="NameOnCard" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="ExpirationDate" Type="date" Nullable="false" />
     <Property Name="SecurityCode" Type="int" Nullable="false" />
@@ -202,29 +196,6 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Team4.dbo.ShowCustomersByDateRange' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="ShowCustomersByDateRange">
-    <Key>
-      <PropertyRef Name="First Name" />
-      <PropertyRef Name="Last Name" />
-      <PropertyRef Name="Date Registered" />
-    </Key>
-    <Property Name="First Name" Type="varchar" MaxLength="25" Nullable="false" />
-    <Property Name="Last Name" Type="varchar" MaxLength="25" Nullable="false" />
-    <Property Name="Date Registered" Type="date" Nullable="false" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Team4.dbo.ShowCustomersByLocationAndDate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="ShowCustomersByLocationAndDate">
-    <Key>
-      <PropertyRef Name="Date Registered" />
-    </Key>
-    <Property Name="First Name" Type="varchar" MaxLength="25" />
-    <Property Name="Last Name" Type="varchar" MaxLength="25" />
-    <Property Name="Date Registered" Type="date" Nullable="false" />
-    <Property Name="State" Type="varchar" MaxLength="50" />
   </EntityType>
   <Association Name="Author2IdFK">
     <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
@@ -401,7 +372,7 @@ warning 6002: The table/view 'Team4.dbo.ShowCustomersByLocationAndDate' does not
   </Function>
   <Function Name="AddCreditCard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CardType" Type="varchar" Mode="In" />
-    <Parameter Name="CardNumber" Type="int" Mode="In" />
+    <Parameter Name="CardNumber" Type="varchar" Mode="In" />
     <Parameter Name="NameOnCard" Type="varchar" Mode="In" />
     <Parameter Name="ExpirationDate" Type="date" Mode="In" />
     <Parameter Name="SecurityCode" Type="int" Mode="In" />
@@ -503,6 +474,10 @@ warning 6002: The table/view 'Team4.dbo.ShowCustomersByLocationAndDate' does not
   <Function Name="GetUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="email" Type="nvarchar" Mode="In" />
     <Parameter Name="Result" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="LinkCard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CardId" Type="int" Mode="In" />
+    <Parameter Name="CustomerId" Type="int" Mode="In" />
   </Function>
   <Function Name="RemoveBookFromCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CartId" Type="int" Mode="In" />
@@ -611,10 +586,11 @@ warning 6002: The table/view 'Team4.dbo.ShowCustomersByLocationAndDate' does not
     <Parameter Name="oldBookPrice" Type="money" Mode="In" />
     <Parameter Name="newBookPrice" Type="money" Mode="In" />
   </Function>
-  <EntityContainer Name="dataModelStoreContainer">
+  <EntityContainer Name="DataModelStoreContainer">
     <EntitySet Name="AUTHOR" EntityType="Self.AUTHOR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CREDIT_CARD" EntityType="Self.CREDIT_CARD" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GENRE" EntityType="Self.GENRE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="INVENTORY" EntityType="Self.INVENTORY" Schema="dbo" store:Type="Tables" />
@@ -646,16 +622,6 @@ warning 6002: The table/view 'Team4.dbo.ShowCustomersByLocationAndDate' does not
     [BOOK_CART].[Quantity] AS [Quantity]
     FROM [dbo].[BOOK_CART] AS [BOOK_CART]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="CREDIT_CARD" EntityType="Self.CREDIT_CARD" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [CREDIT_CARD].[CardId] AS [CardId], 
-    [CREDIT_CARD].[CardType] AS [CardType], 
-    [CREDIT_CARD].[CardNumber] AS [CardNumber], 
-    [CREDIT_CARD].[NameOnCard] AS [NameOnCard], 
-    [CREDIT_CARD].[ExpirationDate] AS [ExpirationDate], 
-    [CREDIT_CARD].[SecurityCode] AS [SecurityCode]
-    FROM [dbo].[CREDIT_CARD] AS [CREDIT_CARD]</DefiningQuery>
-    </EntitySet>
     <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [EMPLOYEE].[EmployeeId] AS [EmployeeId], 
@@ -679,21 +645,6 @@ warning 6002: The table/view 'Team4.dbo.ShowCustomersByLocationAndDate' does not
     [SHIPPING].[City] AS [City], 
     [SHIPPING].[Zip] AS [Zip]
     FROM [dbo].[SHIPPING] AS [SHIPPING]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ShowCustomersByDateRange" EntityType="Self.ShowCustomersByDateRange" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ShowCustomersByDateRange].[First Name] AS [First Name], 
-    [ShowCustomersByDateRange].[Last Name] AS [Last Name], 
-    [ShowCustomersByDateRange].[Date Registered] AS [Date Registered]
-    FROM [dbo].[ShowCustomersByDateRange] AS [ShowCustomersByDateRange]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ShowCustomersByLocationAndDate" EntityType="Self.ShowCustomersByLocationAndDate" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ShowCustomersByLocationAndDate].[First Name] AS [First Name], 
-    [ShowCustomersByLocationAndDate].[Last Name] AS [Last Name], 
-    [ShowCustomersByLocationAndDate].[Date Registered] AS [Date Registered], 
-    [ShowCustomersByLocationAndDate].[State] AS [State]
-    FROM [dbo].[ShowCustomersByLocationAndDate] AS [ShowCustomersByLocationAndDate]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="Author2IdFK" Association="Self.Author2IdFK">
       <End Role="AUTHOR" EntitySet="AUTHOR" />

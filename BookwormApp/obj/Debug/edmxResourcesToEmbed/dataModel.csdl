@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="AUTHOR">
     <Key>
       <PropertyRef Name="AuthorId" />
@@ -41,11 +41,23 @@
     <NavigationProperty Name="BOOK_CART" Relationship="Self.CartIdFK" FromRole="CART" ToRole="BOOK_CART" />
     <NavigationProperty Name="CUSTOMER" Relationship="Self.CustomerIdFK" FromRole="CART" ToRole="CUSTOMER" />
   </EntityType>
+  <EntityType Name="CREDIT_CARD">
+    <Key>
+      <PropertyRef Name="CardId" />
+    </Key>
+    <Property Name="CardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="CardType" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NameOnCard" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="SecurityCode" Type="Int32" Nullable="false" />
+  </EntityType>
   <EntityType Name="CUSTOMER">
     <Key>
       <PropertyRef Name="CustomerId" />
     </Key>
-    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
     <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
@@ -153,26 +165,10 @@
       <PropertyRef Name="CartId" />
     </Key>
     <Property Name="BookId" Type="Int32" Nullable="false" />
-    <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CartId" Type="Int32" Nullable="false" />
     <Property Name="Quantity" Type="Int32" />
     <NavigationProperty Name="BOOK" Relationship="Self.BookCartIdFK" FromRole="BOOK_CART" ToRole="BOOKS" />
     <NavigationProperty Name="CART" Relationship="Self.CartIdFK" FromRole="BOOK_CART" ToRole="CART" />
-  </EntityType>
-  <EntityType Name="CREDIT_CARD">
-    <Key>
-      <PropertyRef Name="CardId" />
-      <PropertyRef Name="CardType" />
-      <PropertyRef Name="CardNumber" />
-      <PropertyRef Name="NameOnCard" />
-      <PropertyRef Name="ExpirationDate" />
-      <PropertyRef Name="SecurityCode" />
-    </Key>
-    <Property Name="CardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CardType" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CardNumber" Type="Int64" Nullable="false" />
-    <Property Name="NameOnCard" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="SecurityCode" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="EMPLOYEE">
     <Key>
@@ -200,25 +196,6 @@
     <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Zip" Type="Int32" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ShowCustomersByDateRange">
-    <Key>
-      <PropertyRef Name="First_Name" />
-      <PropertyRef Name="Last_Name" />
-      <PropertyRef Name="Date_Registered" />
-    </Key>
-    <Property Name="First_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Last_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Date_Registered" Type="DateTime" Nullable="false" Precision="0" />
-  </EntityType>
-  <EntityType Name="ShowCustomersByLocationAndDate">
-    <Key>
-      <PropertyRef Name="Date_Registered" />
-    </Key>
-    <Property Name="First_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-    <Property Name="Last_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-    <Property Name="Date_Registered" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="Author2IdFK">
     <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
@@ -332,10 +309,11 @@
     <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
     <End Role="GENRE" Type="Self.GENRE" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="DataEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUTHORs" EntityType="Self.AUTHOR" />
     <EntitySet Name="BOOKS" EntityType="Self.BOOK" />
     <EntitySet Name="CARTs" EntityType="Self.CART" />
+    <EntitySet Name="CREDIT_CARD" EntityType="Self.CREDIT_CARD" />
     <EntitySet Name="CUSTOMERs" EntityType="Self.CUSTOMER" />
     <EntitySet Name="GENREs" EntityType="Self.GENRE" />
     <EntitySet Name="INVENTORies" EntityType="Self.INVENTORY" />
@@ -346,11 +324,8 @@
     <EntitySet Name="BILLINGs" EntityType="Self.BILLING" />
     <EntitySet Name="BOOK_AUTHOR" EntityType="Self.BOOK_AUTHOR" />
     <EntitySet Name="BOOK_CART" EntityType="Self.BOOK_CART" />
-    <EntitySet Name="CREDIT_CARD" EntityType="Self.CREDIT_CARD" />
     <EntitySet Name="EMPLOYEEs" EntityType="Self.EMPLOYEE" />
     <EntitySet Name="SHIPPINGs" EntityType="Self.SHIPPING" />
-    <EntitySet Name="ShowCustomersByDateRanges" EntityType="Self.ShowCustomersByDateRange" />
-    <EntitySet Name="ShowCustomersByLocationAndDates" EntityType="Self.ShowCustomersByLocationAndDate" />
     <AssociationSet Name="Author2IdFK" Association="Self.Author2IdFK">
       <End Role="AUTHOR" EntitySet="AUTHORs" />
       <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
@@ -434,7 +409,7 @@
     </FunctionImport>
     <FunctionImport Name="AddCreditCard">
       <Parameter Name="CardType" Mode="In" Type="String" />
-      <Parameter Name="CardNumber" Mode="In" Type="Int32" />
+      <Parameter Name="CardNumber" Mode="In" Type="String" />
       <Parameter Name="NameOnCard" Mode="In" Type="String" />
       <Parameter Name="ExpirationDate" Mode="In" Type="DateTime" />
       <Parameter Name="SecurityCode" Mode="In" Type="Int32" />
@@ -522,10 +497,10 @@
     <FunctionImport Name="GetBooksByPublisher" ReturnType="Collection(Int32)">
       <Parameter Name="PublisherId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="GetCustomerHistory" ReturnType="Collection(dataModel.GetCustomerHistory_Result)">
+    <FunctionImport Name="GetCustomerHistory" ReturnType="Collection(DataModel.GetCustomerHistory_Result)">
       <Parameter Name="CustomerId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="GetPublisherSalesByDay" ReturnType="Collection(dataModel.GetPublisherSalesByDay_Result)">
+    <FunctionImport Name="GetPublisherSalesByDay" ReturnType="Collection(DataModel.GetPublisherSalesByDay_Result)">
       <Parameter Name="PublisherId" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="GetRevenueOverTimeFrame" ReturnType="Collection(Decimal)">
@@ -535,6 +510,10 @@
     <FunctionImport Name="GetUserID">
       <Parameter Name="email" Mode="In" Type="String" />
       <Parameter Name="Result" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LinkCard">
+      <Parameter Name="CardId" Mode="In" Type="Int32" />
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="RemoveBookFromCart">
       <Parameter Name="CartId" Mode="In" Type="Int32" />
@@ -561,11 +540,11 @@
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(dataModel.sp_helpdiagramdefinition_Result)">
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DataModel.sp_helpdiagramdefinition_Result)">
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(dataModel.sp_helpdiagrams_Result)">
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DataModel.sp_helpdiagrams_Result)">
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
     </FunctionImport>

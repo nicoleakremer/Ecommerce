@@ -15,8 +15,9 @@ namespace BookwormApp
     public partial class CREDIT_CARD
     {
         public int CardId { get; set; }
+        public Nullable<int> CustomerId { get; set; }
         public string CardType { get; set; }
-        public long CardNumber { get; set; }
+        public string CardNumber { get; set; }
         public string NameOnCard { get; set; }
         public System.DateTime ExpirationDate { get; set; }
         public int SecurityCode { get; set; }

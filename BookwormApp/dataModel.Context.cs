@@ -30,6 +30,7 @@ namespace BookwormApp
         public virtual DbSet<AUTHOR> AUTHORs { get; set; }
         public virtual DbSet<BOOK> BOOKS { get; set; }
         public virtual DbSet<CART> CARTs { get; set; }
+        public virtual DbSet<CREDIT_CARD> CREDIT_CARD { get; set; }
         public virtual DbSet<CUSTOMER> CUSTOMERs { get; set; }
         public virtual DbSet<GENRE> GENREs { get; set; }
         public virtual DbSet<INVENTORY> INVENTORies { get; set; }
@@ -40,11 +41,8 @@ namespace BookwormApp
         public virtual DbSet<BILLING> BILLINGs { get; set; }
         public virtual DbSet<BOOK_AUTHOR> BOOK_AUTHOR { get; set; }
         public virtual DbSet<BOOK_CART> BOOK_CART { get; set; }
-        public virtual DbSet<CREDIT_CARD> CREDIT_CARD { get; set; }
         public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
         public virtual DbSet<SHIPPING> SHIPPINGs { get; set; }
-        public virtual DbSet<ShowCustomersByDateRange> ShowCustomersByDateRanges { get; set; }
-        public virtual DbSet<ShowCustomersByLocationAndDate> ShowCustomersByLocationAndDates { get; set; }
     
         public virtual int AddAuthor(string firstName, string lastName, string biography)
         {
@@ -189,15 +187,15 @@ namespace BookwormApp
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddCart", customerIdParameter);
         }
     
-        public virtual int AddCreditCard(string cardType, Nullable<int> cardNumber, string nameOnCard, Nullable<System.DateTime> expirationDate, Nullable<int> securityCode)
+        public virtual int AddCreditCard(string cardType, string cardNumber, string nameOnCard, Nullable<System.DateTime> expirationDate, Nullable<int> securityCode)
         {
             var cardTypeParameter = cardType != null ?
                 new ObjectParameter("CardType", cardType) :
                 new ObjectParameter("CardType", typeof(string));
     
-            var cardNumberParameter = cardNumber.HasValue ?
+            var cardNumberParameter = cardNumber != null ?
                 new ObjectParameter("CardNumber", cardNumber) :
-                new ObjectParameter("CardNumber", typeof(int));
+                new ObjectParameter("CardNumber", typeof(string));
     
             var nameOnCardParameter = nameOnCard != null ?
                 new ObjectParameter("NameOnCard", nameOnCard) :
@@ -533,6 +531,19 @@ namespace BookwormApp
                 new ObjectParameter("email", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetUserID", emailParameter, result);
+        }
+    
+        public virtual int LinkCard(Nullable<int> cardId, Nullable<int> customerId)
+        {
+            var cardIdParameter = cardId.HasValue ?
+                new ObjectParameter("CardId", cardId) :
+                new ObjectParameter("CardId", typeof(int));
+    
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("CustomerId", customerId) :
+                new ObjectParameter("CustomerId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LinkCard", cardIdParameter, customerIdParameter);
         }
     
         public virtual int RemoveBookFromCart(Nullable<int> cartId, Nullable<int> bookId)

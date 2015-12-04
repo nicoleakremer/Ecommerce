@@ -162,4 +162,3 @@ C:\Users\148168\Documents\Ecommerce\BookwormApp\bin\Microsoft.Owin.Security.Twit
 C:\Users\148168\Documents\Ecommerce\BookwormApp\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\148168\Documents\Ecommerce\BookwormApp\obj\Debug\BookwormApp.dll
 C:\Users\148168\Documents\Ecommerce\BookwormApp\obj\Debug\BookwormApp.pdb
-C:\Users\148168\Documents\Ecommerce\BookwormApp\obj\Debug\BookwormApp.csprojResolveAssemblyReference.cache

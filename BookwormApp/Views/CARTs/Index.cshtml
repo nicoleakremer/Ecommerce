@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.RetailPrice)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
         <th></th>
     </tr>
 
@@ -29,6 +32,9 @@
             @Html.DisplayFor(modelItem => item.RetailPrice)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
             @Html.ActionLink("Delete", "Delete", new { id=item.CartId })
         </td>
     </tr> 
@@ -38,6 +44,6 @@
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-        <input type="submit" class="btn btn-default" value="Check Out" />
+        <a class="btn btn-default" href="CreditCard/Create">Check out &raquo;</a>
     </div>
 </div>
