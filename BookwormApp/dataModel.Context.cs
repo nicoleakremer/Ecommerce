@@ -533,6 +533,19 @@ namespace BookwormApp
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetUserID", emailParameter, result);
         }
     
+        public virtual int LinkBilling(Nullable<int> billingId, Nullable<int> customerId)
+        {
+            var billingIdParameter = billingId.HasValue ?
+                new ObjectParameter("BillingId", billingId) :
+                new ObjectParameter("BillingId", typeof(int));
+    
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("CustomerId", customerId) :
+                new ObjectParameter("CustomerId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LinkBilling", billingIdParameter, customerIdParameter);
+        }
+    
         public virtual int LinkCard(Nullable<int> cardId, Nullable<int> customerId)
         {
             var cardIdParameter = cardId.HasValue ?

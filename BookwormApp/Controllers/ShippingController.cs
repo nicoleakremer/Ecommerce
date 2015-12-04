@@ -14,103 +14,106 @@ namespace BookwormApp.Controllers
     {
         private DataEntities db = new DataEntities();
 
-        // GET: Shipping
+        // GET: BILLINGs
         public ActionResult Index()
         {
-            return View(db.SHIPPINGs.ToList());
+            return View(db.BILLINGs.ToList());
         }
 
-        // GET: Shipping/Details/5
+        // GET: BILLINGs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SHIPPING sHIPPING = db.SHIPPINGs.Find(id);
-            if (sHIPPING == null)
+            BILLING bILLING = db.BILLINGs.Find(id);
+            if (bILLING == null)
             {
                 return HttpNotFound();
             }
-            return View(sHIPPING);
+            return View(bILLING);
         }
 
-        // GET: Shipping/Create
+        // GET: BILLINGs/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Shipping/Create
+        // POST: BILLINGs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ShippingId,CustomerId,State,Street,City,Zip")] SHIPPING sHIPPING)
+        public ActionResult Create([Bind(Include = "BillingId,CustomerId,CardId,State,Street,City,Zip")] BILLING model)
         {
             if (ModelState.IsValid)
             {
-                db.SHIPPINGs.Add(sHIPPING);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.AddBilling(model.CustomerId, model.CardId, model.State, model.Street, model.City, model.Zip);
+                int custId = 0;
+                int billingId = 0;
+                custId = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First().CustomerId;
+                billingId = db.BILLINGs.Where(x => x.CustomerId == model.CustomerId).First().CardId;
+                db.LinkBilling(billingId, custId);
             }
 
-            return View(sHIPPING);
+            return RedirectToAction("Index");
         }
 
-        // GET: Shipping/Edit/5
+        // GET: BILLINGs/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SHIPPING sHIPPING = db.SHIPPINGs.Find(id);
-            if (sHIPPING == null)
+            BILLING bILLING = db.BILLINGs.Find(id);
+            if (bILLING == null)
             {
                 return HttpNotFound();
             }
-            return View(sHIPPING);
+            return View(bILLING);
         }
 
-        // POST: Shipping/Edit/5
+        // POST: BILLINGs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ShippingId,CustomerId,State,Street,City,Zip")] SHIPPING sHIPPING)
+        public ActionResult Edit([Bind(Include = "BillingId,CustomerId,CardId,State,Street,City,Zip")] BILLING bILLING)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sHIPPING).State = EntityState.Modified;
+                db.Entry(bILLING).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(sHIPPING);
+            return View(bILLING);
         }
 
-        // GET: Shipping/Delete/5
+        // GET: BILLINGs/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SHIPPING sHIPPING = db.SHIPPINGs.Find(id);
-            if (sHIPPING == null)
+            BILLING bILLING = db.BILLINGs.Find(id);
+            if (bILLING == null)
             {
                 return HttpNotFound();
             }
-            return View(sHIPPING);
+            return View(bILLING);
         }
 
-        // POST: Shipping/Delete/5
+        // POST: BILLINGs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SHIPPING sHIPPING = db.SHIPPINGs.Find(id);
-            db.SHIPPINGs.Remove(sHIPPING);
+            BILLING bILLING = db.BILLINGs.Find(id);
+            db.BILLINGs.Remove(bILLING);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
