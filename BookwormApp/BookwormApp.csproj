@@ -180,7 +180,6 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AUTHORsController.cs" />
-    <Compile Include="Controllers\ShippingController.cs" />
     <Compile Include="Controllers\BookwormController.cs" />
     <Compile Include="Controllers\BOOK_CARTController.cs" />
     <Compile Include="Controllers\CARTsController.cs" />
@@ -190,7 +189,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PUBLISHERsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\BillingController.cs" />
+    <Compile Include="Controllers\ShippingController.cs" />
     <Compile Include="CREDIT_CARD.cs">
       <DependentUpon>dataModel.tt</DependentUpon>
     </Compile>

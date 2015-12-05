@@ -918,5 +918,18 @@ namespace BookwormApp
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateWholeSalePriceOfBook", inventoryIdParameter, oldBookPriceParameter, newBookPriceParameter);
         }
+    
+        public virtual int LinkShipping(Nullable<int> shippingId, Nullable<int> customerId)
+        {
+            var shippingIdParameter = shippingId.HasValue ?
+                new ObjectParameter("ShippingId", shippingId) :
+                new ObjectParameter("ShippingId", typeof(int));
+    
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("CustomerId", customerId) :
+                new ObjectParameter("CustomerId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LinkShipping", shippingIdParameter, customerIdParameter);
+        }
     }
 }

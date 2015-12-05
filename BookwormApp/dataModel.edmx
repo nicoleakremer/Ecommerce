@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AUTHOR">
           <Key>
             <PropertyRef Name="AuthorId" />
@@ -488,6 +488,10 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <Parameter Name="CardId" Type="int" Mode="In" />
           <Parameter Name="CustomerId" Type="int" Mode="In" />
         </Function>
+        <Function Name="LinkShipping" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ShippingId" Type="int" Mode="In" />
+          <Parameter Name="CustomerId" Type="int" Mode="In" />
+        </Function>
         <Function Name="RemoveBookFromCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CartId" Type="int" Mode="In" />
           <Parameter Name="BookId" Type="int" Mode="In" />
@@ -700,8 +704,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             <End Role="BOOKS" EntitySet="BOOKS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1110,7 +1113,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             <Parameter Name="NumInStock" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="AddCart">
-            <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+          <Parameter Name="CustomerId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="AddCreditCard">
             <Parameter Name="CardType" Mode="In" Type="String" />
@@ -1134,7 +1137,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             <Parameter Name="PermissionLvl" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="AddGenre">
-            <Parameter Name="GenreName" Mode="In" Type="String" />
+          <Parameter Name="GenreName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AddGenre_Book">
             <Parameter Name="BookId" Mode="In" Type="Int32" />
@@ -1179,34 +1182,34 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             <Parameter Name="ShippingId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteCustomer">
-            <Parameter Name="Email" Mode="In" Type="String" />
+          <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DeleteEmployee">
-            <Parameter Name="Email" Mode="In" Type="String" />
+          <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DeleteUser">
-            <Parameter Name="Email" Mode="In" Type="String" />
+          <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DisableCart">
-            <Parameter Name="CartId" Mode="In" Type="Int32" />
+          <Parameter Name="CartId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetBookAuthors" ReturnType="Collection(Int32)">
-            <Parameter Name="BookId" Mode="In" Type="Int32" />
+          <Parameter Name="BookId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetBookGenres" ReturnType="Collection(String)">
-            <Parameter Name="BookId" Mode="In" Type="Int32" />
+          <Parameter Name="BookId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetBooksByGenre" ReturnType="Collection(Int32)">
-            <Parameter Name="GenreName" Mode="In" Type="String" />
+          <Parameter Name="GenreName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetBooksByPublisher" ReturnType="Collection(Int32)">
-            <Parameter Name="PublisherId" Mode="In" Type="Int32" />
+          <Parameter Name="PublisherId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetCustomerHistory" ReturnType="Collection(dataModel.GetCustomerHistory_Result)">
-            <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+          <Parameter Name="CustomerId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetPublisherSalesByDay" ReturnType="Collection(dataModel.GetPublisherSalesByDay_Result)">
-            <Parameter Name="PublisherId" Mode="In" Type="Int32" />
+          <Parameter Name="PublisherId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetRevenueOverTimeFrame" ReturnType="Collection(Decimal)">
             <Parameter Name="From" Mode="In" Type="DateTime" />
@@ -1327,6 +1330,10 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
             <Parameter Name="InventoryId" Mode="In" Type="Int32" />
             <Parameter Name="oldBookPrice" Mode="In" Type="Decimal" />
             <Parameter Name="newBookPrice" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="LinkShipping">
+            <Parameter Name="ShippingId" Mode="In" Type="Int32" />
+            <Parameter Name="CustomerId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCustomerHistory_Result">
@@ -1626,6 +1633,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           <FunctionImportMapping FunctionImportName="UpdateUserEmail" FunctionName="dataModel.Store.UpdateUserEmail" />
           <FunctionImportMapping FunctionImportName="UpdateUserPassword" FunctionName="dataModel.Store.UpdateUserPassword" />
           <FunctionImportMapping FunctionImportName="UpdateWholeSalePriceOfBook" FunctionName="dataModel.Store.UpdateWholeSalePriceOfBook" />
+          <FunctionImportMapping FunctionImportName="LinkShipping" FunctionName="dataModel.Store.LinkShipping" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

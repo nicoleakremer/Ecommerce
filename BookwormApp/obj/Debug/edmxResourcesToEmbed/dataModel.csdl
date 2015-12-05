@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="AUTHOR">
     <Key>
       <PropertyRef Name="AuthorId" />
@@ -309,7 +309,7 @@
     <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
     <End Role="GENRE" Type="Self.GENRE" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="DataEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUTHORs" EntityType="Self.AUTHOR" />
     <EntitySet Name="BOOKS" EntityType="Self.BOOK" />
     <EntitySet Name="CARTs" EntityType="Self.CART" />
@@ -497,10 +497,10 @@
     <FunctionImport Name="GetBooksByPublisher" ReturnType="Collection(Int32)">
       <Parameter Name="PublisherId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="GetCustomerHistory" ReturnType="Collection(DataModel.GetCustomerHistory_Result)">
+    <FunctionImport Name="GetCustomerHistory" ReturnType="Collection(dataModel.GetCustomerHistory_Result)">
       <Parameter Name="CustomerId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="GetPublisherSalesByDay" ReturnType="Collection(DataModel.GetPublisherSalesByDay_Result)">
+    <FunctionImport Name="GetPublisherSalesByDay" ReturnType="Collection(dataModel.GetPublisherSalesByDay_Result)">
       <Parameter Name="PublisherId" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="GetRevenueOverTimeFrame" ReturnType="Collection(Decimal)">
@@ -510,6 +510,10 @@
     <FunctionImport Name="GetUserID">
       <Parameter Name="email" Mode="In" Type="String" />
       <Parameter Name="Result" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LinkBilling">
+      <Parameter Name="BillingId" Mode="In" Type="Int32" />
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="LinkCard">
       <Parameter Name="CardId" Mode="In" Type="Int32" />
@@ -540,11 +544,11 @@
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DataModel.sp_helpdiagramdefinition_Result)">
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(dataModel.sp_helpdiagramdefinition_Result)">
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DataModel.sp_helpdiagrams_Result)">
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(dataModel.sp_helpdiagrams_Result)">
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -618,6 +622,10 @@
       <Parameter Name="InventoryId" Mode="In" Type="Int32" />
       <Parameter Name="oldBookPrice" Mode="In" Type="Decimal" />
       <Parameter Name="newBookPrice" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="LinkShipping">
+      <Parameter Name="ShippingId" Mode="In" Type="Int32" />
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetCustomerHistory_Result">
