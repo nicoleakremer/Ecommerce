@@ -83,6 +83,7 @@
     <EntitySetMapping Name="INVOICEs">
       <EntityTypeMapping TypeName="dataModel.INVOICE">
         <MappingFragment StoreEntitySet="INVOICE">
+          <ScalarProperty Name="CardId" ColumnName="CardId" />
           <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
           <ScalarProperty Name="CartId" ColumnName="CartId" />
@@ -272,5 +273,7 @@
     <FunctionImportMapping FunctionImportName="UpdateUserPassword" FunctionName="dataModel.Store.UpdateUserPassword" />
     <FunctionImportMapping FunctionImportName="UpdateWholeSalePriceOfBook" FunctionName="dataModel.Store.UpdateWholeSalePriceOfBook" />
     <FunctionImportMapping FunctionImportName="LinkShipping" FunctionName="dataModel.Store.LinkShipping" />
+    <FunctionImportMapping FunctionImportName="UpdateCardId" FunctionName="dataModel.Store.UpdateCardId" />
+    <FunctionImportMapping FunctionImportName="UpdateShippingId" FunctionName="dataModel.Store.UpdateShippingId" />
   </EntityContainerMapping>
 </Mapping>

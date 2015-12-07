@@ -17,10 +17,11 @@ namespace BookwormApp
         public int InvoiceId { get; set; }
         public int CustomerId { get; set; }
         public int CartId { get; set; }
-        public int BillingId { get; set; }
+        public Nullable<int> BillingId { get; set; }
         public int ShippingId { get; set; }
         public Nullable<decimal> TotalCost { get; set; }
         public Nullable<System.DateTime> DateOrder { get; set; }
+        public Nullable<int> CardId { get; set; }
     
         public virtual CUSTOMER CUSTOMER { get; set; }
     }
