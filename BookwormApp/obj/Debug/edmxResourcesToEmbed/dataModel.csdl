@@ -91,11 +91,12 @@
     <Property Name="InvoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CustomerId" Type="Int32" Nullable="false" />
     <Property Name="CartId" Type="Int32" Nullable="false" />
-    <Property Name="BillingId" Type="Int32" Nullable="false" />
+    <Property Name="BillingId" Type="Int32" />
     <Property Name="ShippingId" Type="Int32" Nullable="false" />
     <Property Name="TotalCost" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="DateOrder" Type="DateTime" Precision="0" />
     <NavigationProperty Name="CUSTOMER" Relationship="Self.CustomerInvoiceIdFK" FromRole="INVOICE" ToRole="CUSTOMER" />
+    <Property Name="CardId" Type="Int32" />
   </EntityType>
   <EntityType Name="LOGIN">
     <Key>
@@ -626,6 +627,14 @@
     <FunctionImport Name="LinkShipping">
       <Parameter Name="ShippingId" Mode="In" Type="Int32" />
       <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateCardId">
+      <Parameter Name="CardId" Mode="In" Type="Int32" />
+      <Parameter Name="invoiceId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateShippingId">
+      <Parameter Name="ShippingId" Mode="In" Type="Int32" />
+      <Parameter Name="invoiceId" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetCustomerHistory_Result">

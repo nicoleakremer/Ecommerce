@@ -186,6 +186,7 @@
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\INVOICEsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PUBLISHERsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -376,6 +377,11 @@
     <Content Include="Views\Shipping\Details.cshtml" />
     <Content Include="Views\Shipping\Edit.cshtml" />
     <Content Include="Views\Shipping\Index.cshtml" />
+    <Content Include="Views\INVOICEs\Create.cshtml" />
+    <Content Include="Views\INVOICEs\Delete.cshtml" />
+    <Content Include="Views\INVOICEs\Details.cshtml" />
+    <Content Include="Views\INVOICEs\Edit.cshtml" />
+    <Content Include="Views\INVOICEs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -142,8 +142,9 @@ warning 6002: The table/view 'Team4.dbo.GENRE_BOOK' does not have a primary key 
     </Key>
     <Property Name="InvoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="CardId" Type="int" />
     <Property Name="CartId" Type="int" Nullable="false" />
-    <Property Name="BillingId" Type="int" Nullable="false" />
+    <Property Name="BillingId" Type="int" />
     <Property Name="ShippingId" Type="int" Nullable="false" />
     <Property Name="TotalCost" Type="money" />
     <Property Name="DateOrder" Type="date" />
@@ -550,6 +551,10 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="newCity" Type="varchar" Mode="In" />
     <Parameter Name="newZip" Type="int" Mode="In" />
   </Function>
+  <Function Name="UpdateCardId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CardId" Type="int" Mode="In" />
+    <Parameter Name="invoiceId" Type="int" Mode="In" />
+  </Function>
   <Function Name="UpdateCreditCard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="oldCardNumber" Type="int" Mode="In" />
     <Parameter Name="newCardNumber" Type="int" Mode="In" />
@@ -580,6 +585,10 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="newStreet" Type="varchar" Mode="In" />
     <Parameter Name="newCity" Type="varchar" Mode="In" />
     <Parameter Name="newZip" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UpdateShippingId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ShippingId" Type="int" Mode="In" />
+    <Parameter Name="invoiceId" Type="int" Mode="In" />
   </Function>
   <Function Name="UpdateUserEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="oldEmail" Type="varchar" Mode="In" />

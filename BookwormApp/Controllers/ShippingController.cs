@@ -83,6 +83,7 @@ namespace BookwormApp.Controllers
                 custId = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First().CustomerId;
                 shippingId = db.SHIPPINGs.Where(x => x.CustomerId == model.CustomerId).First().ShippingId;
                 db.LinkShipping(shippingId, custId);
+
             }
 
             return RedirectToAction("Index");

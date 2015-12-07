@@ -83,9 +83,11 @@ namespace BookwormApp.Controllers
                 custId = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First().CustomerId;
                 cardId = db.CREDIT_CARD.Where(x => x.CardNumber == model.CardNumber).First().CardId;
                 db.LinkCard(cardId, custId);
+
+                //db.UpdateCardId(custId);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Create", "Shipping");
         }
 
         // GET: CreditCard/Edit/5
