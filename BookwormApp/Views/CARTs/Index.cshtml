@@ -41,7 +41,10 @@
 }
 
 </table>
-
+@*@foreach (var item in Model) {
+@Html.DisplayNameFor(model => model.TotalCost)
+@Html.DisplayFor(modelInvoice => item.TotalCost)
+}*@
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
         <a class="btn btn-default" href="CreditCard/Create">Check out &raquo;</a>

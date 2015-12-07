@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BookwormApp.INVOICE>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CartId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShippingId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CUSTOMER.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CartId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShippingId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CUSTOMER.Email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.InvoiceId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceId })
+        </td>
+    </tr>
+}
+
+</table>

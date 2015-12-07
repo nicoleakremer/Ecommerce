@@ -20,6 +20,7 @@ namespace BookwormApp.Models
         public int CartId { get; set; }
         public Nullable<int> Quantity { get; set; }
         public decimal RetailPrice { get; set; }
+        public decimal? TotalCost { get; set; }
 
 
     }
