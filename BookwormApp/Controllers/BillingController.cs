@@ -46,16 +46,19 @@ namespace BookwormApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BillingId,CustomerId,CardId,State,Street,City,Zip")] BILLING bILLING)
+        public ActionResult Create([Bind(Include = "BillingId,CustomerId,CardId,State,Street,City,Zip")] BILLING model)
         {
             if (ModelState.IsValid)
             {
-                db.BILLINGs.Add(bILLING);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.AddCreditCard(model.CardType, model.CardNumber, model.NameOnCard, model.ExpirationDate, model.SecurityCode);
+                int custId = 0;
+                int cardId = 0;
+                custId = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First().CustomerId;
+                cardId = db.CREDIT_CARD.Where(x => x.CardNumber == model.CardNumber).First().CardId;
+                db.LinkCard(cardId, custId);
             }
 
-            return View(bILLING);
+            return View(model);
         }
 
         // GET: BILLINGs/Edit/5
