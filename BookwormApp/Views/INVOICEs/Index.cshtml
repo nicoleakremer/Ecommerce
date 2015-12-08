@@ -1,0 +1,70 @@
+﻿@model BookwormApp.Models.InvoiceModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.books)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RetailPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.card)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shipping)
+        </th>
+
+        <th></th>
+    </tr>
+
+@for (int n = 0; n < Model.books.Count; n++ )
+{
+    <tr>
+       <td>
+            @Html.DisplayFor(model => model.books[n])
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Quantity[n])
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.RetailPrice[n])
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.card)
+        <td>
+            @Html.DisplayFor(model => model.shipping)
+        </td>
+
+        </td>
+       
+    </tr>
+}
+
+</table>
+<div>
+    @Html.DisplayNameFor(model => model.TotalCost)
+    @Html.DisplayFor(model => model.TotalCost)
+</div>
+
+@using (Html.BeginForm("Submit", "INVOICEs", new { cartId = Model.cartId, billing = Model.billing.BillingId, shipping = Model.shipping.ShippingId, totalCost = Model.TotalCost, cardId = Model.cartId}, FormMethod.Post, null))
+{ 
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Submit" class="btn btn-default" />
+    </div>
+</div>
+}

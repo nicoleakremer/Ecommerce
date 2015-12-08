@@ -179,14 +179,15 @@
       <DependentUpon>dataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddBookController.cs" />
     <Compile Include="Controllers\AUTHORsController.cs" />
-    <Compile Include="Controllers\BillingController.cs" />
     <Compile Include="Controllers\BookwormController.cs" />
     <Compile Include="Controllers\BOOK_CARTController.cs" />
     <Compile Include="Controllers\CARTsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\INVOICEsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PUBLISHERsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Functions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PUBLISHER.cs">
@@ -377,6 +379,17 @@
     <Content Include="Views\Shipping\Details.cshtml" />
     <Content Include="Views\Shipping\Edit.cshtml" />
     <Content Include="Views\Shipping\Index.cshtml" />
+    <Content Include="Views\INVOICEs\Create.cshtml" />
+    <Content Include="Views\INVOICEs\Delete.cshtml" />
+    <Content Include="Views\INVOICEs\Details.cshtml" />
+    <Content Include="Views\INVOICEs\Edit.cshtml" />
+    <Content Include="Views\INVOICEs\Index.cshtml" />
+    <Content Include="Views\INVOICEs\Finished.cshtml" />
+    <Content Include="Views\AddBook\Create.cshtml" />
+    <Content Include="Views\AddBook\Delete.cshtml" />
+    <Content Include="Views\AddBook\Details.cshtml" />
+    <Content Include="Views\AddBook\Edit.cshtml" />
+    <Content Include="Views\AddBook\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

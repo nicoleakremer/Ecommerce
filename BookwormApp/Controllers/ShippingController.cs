@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookwormApp;
+using System.Threading.Tasks;
 
 namespace BookwormApp.Controllers
 {
@@ -17,8 +18,34 @@ namespace BookwormApp.Controllers
         // GET: Shipping
         public ActionResult Index()
         {
-            return View(db.SHIPPINGs.ToList());
+            CUSTOMER customer = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First();
+            var Shipment = from ship in db.SHIPPINGs
+                           where ship.CustomerId == customer.CustomerId
+                           select ship;
+
+            return View(Shipment.ToList());
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Shipment(SHIPPING model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.AddShipping(model.CustomerId, model.State, model.Street, model.City, model.Zip);
+                int custId = 0;
+                int shippingId = 0;
+                custId = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First().CustomerId;
+               shippingId = db.SHIPPINGs.Where(x => x.CustomerId == model.CustomerId).First().ShippingId;
+                db.LinkShipping(shippingId, custId);
+
+            }
+
+
+            return View(model);
+        }
+
 
         // GET: Shipping/Details/5
         public ActionResult Details(int? id)
@@ -46,16 +73,20 @@ namespace BookwormApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ShippingId,CustomerId,State,Street,City,Zip")] SHIPPING sHIPPING)
+        public ActionResult Create([Bind(Include = "ShippingId,CustomerId,State,Street,City,Zip")] SHIPPING model)
         {
             if (ModelState.IsValid)
             {
-                db.SHIPPINGs.Add(sHIPPING);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.AddShipping(model.CustomerId, model.State, model.Street, model.City, model.Zip);
+                int custId = 0;
+                int shippingId = 0;
+                custId = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First().CustomerId;
+                shippingId = db.SHIPPINGs.Where(x => x.CustomerId == model.CustomerId).First().ShippingId;
+                db.LinkShipping(shippingId, custId);
+
             }
 
-            return View(sHIPPING);
+            return RedirectToAction("Index", "INVOICEs");
         }
 
         // GET: Shipping/Edit/5

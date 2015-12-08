@@ -22,11 +22,13 @@ namespace BookwormApp.Controllers
             //Session["Customer"] = Membership.GetEmail().Email;
             CUSTOMER customer = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First();
             CART cart = db.CARTs.Where(x => x.CustomerId == customer.CustomerId).First();
+          //  INVOICE Invoice = db.INVOICEs.Where(x => x.CartId == cart.CartId).First();
             var list = db.BOOK_CART.Where(x => x.CartId == cart.CartId);
             List<Cart> CartList = new List<Cart>();
             foreach (var item in list)
             {
                 Cart Shopping = new Cart();
+                
                 BOOK Book = db.BOOKS.Where(x => x.BookId == item.BookId).First();
                 Shopping.RetailPrice = db.INVENTORies.Where(x => x.InventoryId == Book.InventoryId).First().RetailPrice;
                 Shopping.Title = Book.Title;
@@ -37,12 +39,17 @@ namespace BookwormApp.Controllers
                 Shopping.ISBN = Book.ISBN;
                 Shopping.CopyRightDate = Book.CopyRightDate;
                 Shopping.Quantity = item.Quantity;
+                //Shopping.TotalCost = Invoice.TotalCost;
 
                 CartList.Add(Shopping);
 
             }
-            var cARTs = db.CARTs.Include(c => c.CUSTOMER);
+
+
+          
+            
             return View(CartList.ToList());
+         
         }
       
         

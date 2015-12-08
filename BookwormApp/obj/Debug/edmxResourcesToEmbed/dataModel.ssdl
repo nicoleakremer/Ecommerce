@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="AUTHOR">
     <Key>
       <PropertyRef Name="AuthorId" />
@@ -142,8 +142,9 @@ warning 6002: The table/view 'Team4.dbo.GENRE_BOOK' does not have a primary key 
     </Key>
     <Property Name="InvoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="CardId" Type="int" />
     <Property Name="CartId" Type="int" Nullable="false" />
-    <Property Name="BillingId" Type="int" Nullable="false" />
+    <Property Name="BillingId" Type="int" />
     <Property Name="ShippingId" Type="int" Nullable="false" />
     <Property Name="TotalCost" Type="money" />
     <Property Name="DateOrder" Type="date" />
@@ -432,9 +433,11 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
   </Function>
   <Function Name="CreateInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CustomerId" Type="int" Mode="In" />
+    <Parameter Name="CardId" Type="int" Mode="In" />
     <Parameter Name="CartId" Type="int" Mode="In" />
     <Parameter Name="BillingId" Type="int" Mode="In" />
     <Parameter Name="ShippingId" Type="int" Mode="In" />
+    <Parameter Name="TotalCost" Type="money" Mode="In" />
   </Function>
   <Function Name="DeleteCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Email" Type="varchar" Mode="In" />
@@ -475,8 +478,16 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="email" Type="nvarchar" Mode="In" />
     <Parameter Name="Result" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="LinkBilling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BillingId" Type="int" Mode="In" />
+    <Parameter Name="CustomerId" Type="int" Mode="In" />
+  </Function>
   <Function Name="LinkCard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CardId" Type="int" Mode="In" />
+    <Parameter Name="CustomerId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="LinkShipping" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ShippingId" Type="int" Mode="In" />
     <Parameter Name="CustomerId" Type="int" Mode="In" />
   </Function>
   <Function Name="RemoveBookFromCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -542,6 +553,10 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="newCity" Type="varchar" Mode="In" />
     <Parameter Name="newZip" Type="int" Mode="In" />
   </Function>
+  <Function Name="UpdateCardId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CardId" Type="int" Mode="In" />
+    <Parameter Name="invoiceId" Type="int" Mode="In" />
+  </Function>
   <Function Name="UpdateCreditCard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="oldCardNumber" Type="int" Mode="In" />
     <Parameter Name="newCardNumber" Type="int" Mode="In" />
@@ -573,6 +588,10 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="newCity" Type="varchar" Mode="In" />
     <Parameter Name="newZip" Type="int" Mode="In" />
   </Function>
+  <Function Name="UpdateShippingId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ShippingId" Type="int" Mode="In" />
+    <Parameter Name="invoiceId" Type="int" Mode="In" />
+  </Function>
   <Function Name="UpdateUserEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="oldEmail" Type="varchar" Mode="In" />
     <Parameter Name="newEmail" Type="varchar" Mode="In" />
@@ -586,7 +605,7 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
     <Parameter Name="oldBookPrice" Type="money" Mode="In" />
     <Parameter Name="newBookPrice" Type="money" Mode="In" />
   </Function>
-  <EntityContainer Name="DataModelStoreContainer">
+  <EntityContainer Name="dataModelStoreContainer">
     <EntitySet Name="AUTHOR" EntityType="Self.AUTHOR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />

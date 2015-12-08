@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="Entities">
+  <EntityContainerMapping StorageEntityContainer="dataModelStoreContainer" CdmEntityContainer="DataEntities">
     <EntitySetMapping Name="AUTHORs">
-      <EntityTypeMapping TypeName="DataModel.AUTHOR">
+      <EntityTypeMapping TypeName="dataModel.AUTHOR">
         <MappingFragment StoreEntitySet="AUTHOR">
           <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="BOOKS">
-      <EntityTypeMapping TypeName="DataModel.BOOK">
+      <EntityTypeMapping TypeName="dataModel.BOOK">
         <MappingFragment StoreEntitySet="BOOKS">
           <ScalarProperty Name="BookId" ColumnName="BookId" />
           <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
@@ -28,7 +28,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CARTs">
-      <EntityTypeMapping TypeName="DataModel.CART">
+      <EntityTypeMapping TypeName="dataModel.CART">
         <MappingFragment StoreEntitySet="CART">
           <ScalarProperty Name="CartId" ColumnName="CartId" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -37,7 +37,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CREDIT_CARD">
-      <EntityTypeMapping TypeName="DataModel.CREDIT_CARD">
+      <EntityTypeMapping TypeName="dataModel.CREDIT_CARD">
         <MappingFragment StoreEntitySet="CREDIT_CARD">
           <ScalarProperty Name="CardId" ColumnName="CardId" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -50,7 +50,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CUSTOMERs">
-      <EntityTypeMapping TypeName="DataModel.CUSTOMER">
+      <EntityTypeMapping TypeName="dataModel.CUSTOMER">
         <MappingFragment StoreEntitySet="CUSTOMER">
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -64,14 +64,14 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="GENREs">
-      <EntityTypeMapping TypeName="DataModel.GENRE">
+      <EntityTypeMapping TypeName="dataModel.GENRE">
         <MappingFragment StoreEntitySet="GENRE">
           <ScalarProperty Name="GenreName" ColumnName="GenreName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="INVENTORies">
-      <EntityTypeMapping TypeName="DataModel.INVENTORY">
+      <EntityTypeMapping TypeName="dataModel.INVENTORY">
         <MappingFragment StoreEntitySet="INVENTORY">
           <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
           <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
@@ -81,8 +81,9 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="INVOICEs">
-      <EntityTypeMapping TypeName="DataModel.INVOICE">
+      <EntityTypeMapping TypeName="dataModel.INVOICE">
         <MappingFragment StoreEntitySet="INVOICE">
+          <ScalarProperty Name="CardId" ColumnName="CardId" />
           <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
           <ScalarProperty Name="CartId" ColumnName="CartId" />
@@ -94,7 +95,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LOGINs">
-      <EntityTypeMapping TypeName="DataModel.LOGIN">
+      <EntityTypeMapping TypeName="dataModel.LOGIN">
         <MappingFragment StoreEntitySet="LOGIN">
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Password" ColumnName="Password" />
@@ -103,7 +104,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PUBLISHERs">
-      <EntityTypeMapping TypeName="DataModel.PUBLISHER">
+      <EntityTypeMapping TypeName="dataModel.PUBLISHER">
         <MappingFragment StoreEntitySet="PUBLISHER">
           <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -117,7 +118,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="DataModel.sysdiagram">
+      <EntityTypeMapping TypeName="dataModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -128,7 +129,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="BILLINGs">
-      <EntityTypeMapping TypeName="DataModel.BILLING">
+      <EntityTypeMapping TypeName="dataModel.BILLING">
         <MappingFragment StoreEntitySet="BILLING">
           <ScalarProperty Name="BillingId" ColumnName="BillingId" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -141,7 +142,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="BOOK_AUTHOR">
-      <EntityTypeMapping TypeName="DataModel.BOOK_AUTHOR">
+      <EntityTypeMapping TypeName="dataModel.BOOK_AUTHOR">
         <MappingFragment StoreEntitySet="BOOK_AUTHOR">
           <ScalarProperty Name="BookId" ColumnName="BookId" />
           <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
@@ -149,7 +150,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="BOOK_CART">
-      <EntityTypeMapping TypeName="DataModel.BOOK_CART">
+      <EntityTypeMapping TypeName="dataModel.BOOK_CART">
         <MappingFragment StoreEntitySet="BOOK_CART">
           <ScalarProperty Name="BookId" ColumnName="BookId" />
           <ScalarProperty Name="CartId" ColumnName="CartId" />
@@ -158,7 +159,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="EMPLOYEEs">
-      <EntityTypeMapping TypeName="DataModel.EMPLOYEE">
+      <EntityTypeMapping TypeName="dataModel.EMPLOYEE">
         <MappingFragment StoreEntitySet="EMPLOYEE">
           <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
           <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
@@ -168,7 +169,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SHIPPINGs">
-      <EntityTypeMapping TypeName="DataModel.SHIPPING">
+      <EntityTypeMapping TypeName="dataModel.SHIPPING">
         <MappingFragment StoreEntitySet="SHIPPING">
           <ScalarProperty Name="ShippingId" ColumnName="ShippingId" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -179,7 +180,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="GENRE_BOOK" TypeName="DataModel.GENRE_BOOK" StoreEntitySet="GENRE_BOOK">
+    <AssociationSetMapping Name="GENRE_BOOK" TypeName="dataModel.GENRE_BOOK" StoreEntitySet="GENRE_BOOK">
       <EndProperty Name="BOOKS">
         <ScalarProperty Name="BookId" ColumnName="BookId" />
       </EndProperty>
@@ -187,34 +188,34 @@
         <ScalarProperty Name="GenreName" ColumnName="GenreName" />
       </EndProperty>
     </AssociationSetMapping>
-    <FunctionImportMapping FunctionImportName="AddAuthor" FunctionName="DataModel.Store.AddAuthor" />
-    <FunctionImportMapping FunctionImportName="AddBilling" FunctionName="DataModel.Store.AddBilling" />
-    <FunctionImportMapping FunctionImportName="AddBook" FunctionName="DataModel.Store.AddBook" />
-    <FunctionImportMapping FunctionImportName="AddBook_Author" FunctionName="DataModel.Store.AddBook_Author" />
-    <FunctionImportMapping FunctionImportName="AddBookToCart" FunctionName="DataModel.Store.AddBookToCart" />
-    <FunctionImportMapping FunctionImportName="AddBookToInventory" FunctionName="DataModel.Store.AddBookToInventory" />
-    <FunctionImportMapping FunctionImportName="AddCart" FunctionName="DataModel.Store.AddCart" />
-    <FunctionImportMapping FunctionImportName="AddCreditCard" FunctionName="DataModel.Store.AddCreditCard" />
-    <FunctionImportMapping FunctionImportName="AddCustomer" FunctionName="DataModel.Store.AddCustomer" />
-    <FunctionImportMapping FunctionImportName="AddEmployee" FunctionName="DataModel.Store.AddEmployee" />
-    <FunctionImportMapping FunctionImportName="AddGenre" FunctionName="DataModel.Store.AddGenre" />
-    <FunctionImportMapping FunctionImportName="AddGenre_Book" FunctionName="DataModel.Store.AddGenre_Book" />
-    <FunctionImportMapping FunctionImportName="AddPublisher" FunctionName="DataModel.Store.AddPublisher" />
-    <FunctionImportMapping FunctionImportName="AddShipping" FunctionName="DataModel.Store.AddShipping" />
-    <FunctionImportMapping FunctionImportName="AddUserAsCustomer" FunctionName="DataModel.Store.AddUserAsCustomer" />
-    <FunctionImportMapping FunctionImportName="AddUserAsEmployee" FunctionName="DataModel.Store.AddUserAsEmployee" />
-    <FunctionImportMapping FunctionImportName="CreateInvoice" FunctionName="DataModel.Store.CreateInvoice" />
-    <FunctionImportMapping FunctionImportName="DeleteCustomer" FunctionName="DataModel.Store.DeleteCustomer" />
-    <FunctionImportMapping FunctionImportName="DeleteEmployee" FunctionName="DataModel.Store.DeleteEmployee" />
-    <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="DataModel.Store.DeleteUser" />
-    <FunctionImportMapping FunctionImportName="DisableCart" FunctionName="DataModel.Store.DisableCart" />
-    <FunctionImportMapping FunctionImportName="GetBookAuthors" FunctionName="DataModel.Store.GetBookAuthors" />
-    <FunctionImportMapping FunctionImportName="GetBookGenres" FunctionName="DataModel.Store.GetBookGenres" />
-    <FunctionImportMapping FunctionImportName="GetBooksByGenre" FunctionName="DataModel.Store.GetBooksByGenre" />
-    <FunctionImportMapping FunctionImportName="GetBooksByPublisher" FunctionName="DataModel.Store.GetBooksByPublisher" />
-    <FunctionImportMapping FunctionImportName="GetCustomerHistory" FunctionName="DataModel.Store.GetCustomerHistory">
+    <FunctionImportMapping FunctionImportName="AddAuthor" FunctionName="dataModel.Store.AddAuthor" />
+    <FunctionImportMapping FunctionImportName="AddBilling" FunctionName="dataModel.Store.AddBilling" />
+    <FunctionImportMapping FunctionImportName="AddBook" FunctionName="dataModel.Store.AddBook" />
+    <FunctionImportMapping FunctionImportName="AddBook_Author" FunctionName="dataModel.Store.AddBook_Author" />
+    <FunctionImportMapping FunctionImportName="AddBookToCart" FunctionName="dataModel.Store.AddBookToCart" />
+    <FunctionImportMapping FunctionImportName="AddBookToInventory" FunctionName="dataModel.Store.AddBookToInventory" />
+    <FunctionImportMapping FunctionImportName="AddCart" FunctionName="dataModel.Store.AddCart" />
+    <FunctionImportMapping FunctionImportName="AddCreditCard" FunctionName="dataModel.Store.AddCreditCard" />
+    <FunctionImportMapping FunctionImportName="AddCustomer" FunctionName="dataModel.Store.AddCustomer" />
+    <FunctionImportMapping FunctionImportName="AddEmployee" FunctionName="dataModel.Store.AddEmployee" />
+    <FunctionImportMapping FunctionImportName="AddGenre" FunctionName="dataModel.Store.AddGenre" />
+    <FunctionImportMapping FunctionImportName="AddGenre_Book" FunctionName="dataModel.Store.AddGenre_Book" />
+    <FunctionImportMapping FunctionImportName="AddPublisher" FunctionName="dataModel.Store.AddPublisher" />
+    <FunctionImportMapping FunctionImportName="AddShipping" FunctionName="dataModel.Store.AddShipping" />
+    <FunctionImportMapping FunctionImportName="AddUserAsCustomer" FunctionName="dataModel.Store.AddUserAsCustomer" />
+    <FunctionImportMapping FunctionImportName="AddUserAsEmployee" FunctionName="dataModel.Store.AddUserAsEmployee" />
+    <FunctionImportMapping FunctionImportName="CreateInvoice" FunctionName="dataModel.Store.CreateInvoice" />
+    <FunctionImportMapping FunctionImportName="DeleteCustomer" FunctionName="dataModel.Store.DeleteCustomer" />
+    <FunctionImportMapping FunctionImportName="DeleteEmployee" FunctionName="dataModel.Store.DeleteEmployee" />
+    <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="dataModel.Store.DeleteUser" />
+    <FunctionImportMapping FunctionImportName="DisableCart" FunctionName="dataModel.Store.DisableCart" />
+    <FunctionImportMapping FunctionImportName="GetBookAuthors" FunctionName="dataModel.Store.GetBookAuthors" />
+    <FunctionImportMapping FunctionImportName="GetBookGenres" FunctionName="dataModel.Store.GetBookGenres" />
+    <FunctionImportMapping FunctionImportName="GetBooksByGenre" FunctionName="dataModel.Store.GetBooksByGenre" />
+    <FunctionImportMapping FunctionImportName="GetBooksByPublisher" FunctionName="dataModel.Store.GetBooksByPublisher" />
+    <FunctionImportMapping FunctionImportName="GetCustomerHistory" FunctionName="dataModel.Store.GetCustomerHistory">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="DataModel.GetCustomerHistory_Result">
+        <ComplexTypeMapping TypeName="dataModel.GetCustomerHistory_Result">
           <ScalarProperty Name="First_Name" ColumnName="First Name" />
           <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
           <ScalarProperty Name="Book" ColumnName="Book" />
@@ -222,33 +223,34 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="GetPublisherSalesByDay" FunctionName="DataModel.Store.GetPublisherSalesByDay">
+    <FunctionImportMapping FunctionImportName="GetPublisherSalesByDay" FunctionName="dataModel.Store.GetPublisherSalesByDay">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="DataModel.GetPublisherSalesByDay_Result">
+        <ComplexTypeMapping TypeName="dataModel.GetPublisherSalesByDay_Result">
           <ScalarProperty Name="Revenue" ColumnName="Revenue" />
           <ScalarProperty Name="Day" ColumnName="Day" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="GetRevenueOverTimeFrame" FunctionName="DataModel.Store.GetRevenueOverTimeFrame" />
-    <FunctionImportMapping FunctionImportName="GetUserID" FunctionName="DataModel.Store.GetUserID" />
-    <FunctionImportMapping FunctionImportName="LinkCard" FunctionName="DataModel.Store.LinkCard" />
-    <FunctionImportMapping FunctionImportName="RemoveBookFromCart" FunctionName="DataModel.Store.RemoveBookFromCart" />
-    <FunctionImportMapping FunctionImportName="RemoveQuantityOfBookFromCart" FunctionName="DataModel.Store.RemoveQuantityOfBookFromCart" />
-    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DataModel.Store.sp_alterdiagram" />
-    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DataModel.Store.sp_creatediagram" />
-    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DataModel.Store.sp_dropdiagram" />
-    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DataModel.Store.sp_helpdiagramdefinition">
+    <FunctionImportMapping FunctionImportName="GetRevenueOverTimeFrame" FunctionName="dataModel.Store.GetRevenueOverTimeFrame" />
+    <FunctionImportMapping FunctionImportName="GetUserID" FunctionName="dataModel.Store.GetUserID" />
+    <FunctionImportMapping FunctionImportName="LinkBilling" FunctionName="dataModel.Store.LinkBilling" />
+    <FunctionImportMapping FunctionImportName="LinkCard" FunctionName="dataModel.Store.LinkCard" />
+    <FunctionImportMapping FunctionImportName="RemoveBookFromCart" FunctionName="dataModel.Store.RemoveBookFromCart" />
+    <FunctionImportMapping FunctionImportName="RemoveQuantityOfBookFromCart" FunctionName="dataModel.Store.RemoveQuantityOfBookFromCart" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="dataModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="dataModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="dataModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="dataModel.Store.sp_helpdiagramdefinition">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="DataModel.sp_helpdiagramdefinition_Result">
+        <ComplexTypeMapping TypeName="dataModel.sp_helpdiagramdefinition_Result">
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DataModel.Store.sp_helpdiagrams">
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="dataModel.Store.sp_helpdiagrams">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="DataModel.sp_helpdiagrams_Result">
+        <ComplexTypeMapping TypeName="dataModel.sp_helpdiagrams_Result">
           <ScalarProperty Name="Database" ColumnName="Database" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
@@ -257,18 +259,21 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DataModel.Store.sp_renamediagram" />
-    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DataModel.Store.sp_upgraddiagrams" />
-    <FunctionImportMapping FunctionImportName="Update_Publisher" FunctionName="DataModel.Store.Update_Publisher" />
-    <FunctionImportMapping FunctionImportName="UpdateBilling" FunctionName="DataModel.Store.UpdateBilling" />
-    <FunctionImportMapping FunctionImportName="UpdateCreditCard" FunctionName="DataModel.Store.UpdateCreditCard" />
-    <FunctionImportMapping FunctionImportName="UpdateCustomerEmail" FunctionName="DataModel.Store.UpdateCustomerEmail" />
-    <FunctionImportMapping FunctionImportName="UpdateEmployeeEmail" FunctionName="DataModel.Store.UpdateEmployeeEmail" />
-    <FunctionImportMapping FunctionImportName="UpdateEmployeePassword" FunctionName="DataModel.Store.UpdateEmployeePassword" />
-    <FunctionImportMapping FunctionImportName="UpdatePriceOfBook" FunctionName="DataModel.Store.UpdatePriceOfBook" />
-    <FunctionImportMapping FunctionImportName="UpdateShipping" FunctionName="DataModel.Store.UpdateShipping" />
-    <FunctionImportMapping FunctionImportName="UpdateUserEmail" FunctionName="DataModel.Store.UpdateUserEmail" />
-    <FunctionImportMapping FunctionImportName="UpdateUserPassword" FunctionName="DataModel.Store.UpdateUserPassword" />
-    <FunctionImportMapping FunctionImportName="UpdateWholeSalePriceOfBook" FunctionName="DataModel.Store.UpdateWholeSalePriceOfBook" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="dataModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="dataModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="Update_Publisher" FunctionName="dataModel.Store.Update_Publisher" />
+    <FunctionImportMapping FunctionImportName="UpdateBilling" FunctionName="dataModel.Store.UpdateBilling" />
+    <FunctionImportMapping FunctionImportName="UpdateCreditCard" FunctionName="dataModel.Store.UpdateCreditCard" />
+    <FunctionImportMapping FunctionImportName="UpdateCustomerEmail" FunctionName="dataModel.Store.UpdateCustomerEmail" />
+    <FunctionImportMapping FunctionImportName="UpdateEmployeeEmail" FunctionName="dataModel.Store.UpdateEmployeeEmail" />
+    <FunctionImportMapping FunctionImportName="UpdateEmployeePassword" FunctionName="dataModel.Store.UpdateEmployeePassword" />
+    <FunctionImportMapping FunctionImportName="UpdatePriceOfBook" FunctionName="dataModel.Store.UpdatePriceOfBook" />
+    <FunctionImportMapping FunctionImportName="UpdateShipping" FunctionName="dataModel.Store.UpdateShipping" />
+    <FunctionImportMapping FunctionImportName="UpdateUserEmail" FunctionName="dataModel.Store.UpdateUserEmail" />
+    <FunctionImportMapping FunctionImportName="UpdateUserPassword" FunctionName="dataModel.Store.UpdateUserPassword" />
+    <FunctionImportMapping FunctionImportName="UpdateWholeSalePriceOfBook" FunctionName="dataModel.Store.UpdateWholeSalePriceOfBook" />
+    <FunctionImportMapping FunctionImportName="LinkShipping" FunctionName="dataModel.Store.LinkShipping" />
+    <FunctionImportMapping FunctionImportName="UpdateCardId" FunctionName="dataModel.Store.UpdateCardId" />
+    <FunctionImportMapping FunctionImportName="UpdateShippingId" FunctionName="dataModel.Store.UpdateShippingId" />
   </EntityContainerMapping>
 </Mapping>
