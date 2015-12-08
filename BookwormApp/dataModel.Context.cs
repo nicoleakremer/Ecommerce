@@ -400,11 +400,15 @@ namespace BookwormApp
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddUserAsEmployee", emailParameter, passwordParameter, permissionLvlParameter);
         }
     
-        public virtual int CreateInvoice(Nullable<int> customerId, Nullable<int> cartId, Nullable<int> billingId, Nullable<int> shippingId)
+        public virtual int CreateInvoice(Nullable<int> customerId, Nullable<int> cardId, Nullable<int> cartId, Nullable<int> billingId, Nullable<int> shippingId, Nullable<decimal> totalCost)
         {
             var customerIdParameter = customerId.HasValue ?
                 new ObjectParameter("CustomerId", customerId) :
                 new ObjectParameter("CustomerId", typeof(int));
+    
+            var cardIdParameter = cardId.HasValue ?
+                new ObjectParameter("CardId", cardId) :
+                new ObjectParameter("CardId", typeof(int));
     
             var cartIdParameter = cartId.HasValue ?
                 new ObjectParameter("CartId", cartId) :
@@ -418,7 +422,11 @@ namespace BookwormApp
                 new ObjectParameter("ShippingId", shippingId) :
                 new ObjectParameter("ShippingId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateInvoice", customerIdParameter, cartIdParameter, billingIdParameter, shippingIdParameter);
+            var totalCostParameter = totalCost.HasValue ?
+                new ObjectParameter("TotalCost", totalCost) :
+                new ObjectParameter("TotalCost", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateInvoice", customerIdParameter, cardIdParameter, cartIdParameter, billingIdParameter, shippingIdParameter, totalCostParameter);
         }
     
         public virtual int DeleteCustomer(string email)

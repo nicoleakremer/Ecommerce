@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookwormApp.INVOICE>
+﻿@model BookwormApp.Models.InvoiceModel
 
 @{
     ViewBag.Title = "Index";
@@ -11,53 +11,60 @@
 </p>
 <table class="table">
     <tr>
+       
         <th>
-            @Html.DisplayNameFor(model => model.CartId)
+            @Html.DisplayNameFor(model => model.books)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BillingId)
+            @Html.DisplayNameFor(model => model.Quantity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShippingId)
+            @Html.DisplayNameFor(model => model.RetailPrice)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalCost)
+            @Html.DisplayNameFor(model => model.card)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateOrder)
+            @Html.DisplayNameFor(model => model.shipping)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CUSTOMER.Email)
-        </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@for (int n = 0; n < Model.books.Count; n++ )
+{
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CartId)
+       <td>
+            @Html.DisplayFor(model => model.books[n])
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BillingId)
+            @Html.DisplayFor(model => model.Quantity[n])
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShippingId)
+            @Html.DisplayFor(model => model.RetailPrice[n])
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TotalCost)
-        </td>
+            @Html.DisplayFor(model => model.card)
         <td>
-            @Html.DisplayFor(modelItem => item.DateOrder)
+            @Html.DisplayFor(model => model.shipping)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CUSTOMER.Email)
+
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.InvoiceId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceId })
-        </td>
+       
     </tr>
 }
 
 </table>
+<div>
+    @Html.DisplayNameFor(model => model.TotalCost)
+    @Html.DisplayFor(model => model.TotalCost)
+</div>
+
+@using (Html.BeginForm("Submit", "INVOICEs", new { cartId = Model.cartId, billing = Model.billing.BillingId, shipping = Model.shipping.ShippingId, totalCost = Model.TotalCost, cardId = Model.cartId}, FormMethod.Post, null))
+{ 
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Submit" class="btn btn-default" />
+    </div>
+</div>
+}

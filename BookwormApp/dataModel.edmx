@@ -438,9 +438,11 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
         </Function>
         <Function Name="CreateInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustomerId" Type="int" Mode="In" />
+          <Parameter Name="CardId" Type="int" Mode="In" />
           <Parameter Name="CartId" Type="int" Mode="In" />
           <Parameter Name="BillingId" Type="int" Mode="In" />
           <Parameter Name="ShippingId" Type="int" Mode="In" />
+          <Parameter Name="TotalCost" Type="money" Mode="In" />
         </Function>
         <Function Name="DeleteCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Email" Type="varchar" Mode="In" />
@@ -1187,9 +1189,11 @@ warning 6002: The table/view 'Team4.dbo.SHIPPING' does not have a primary key de
           </FunctionImport>
           <FunctionImport Name="CreateInvoice">
             <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+            <Parameter Name="CardId" Mode="In" Type="Int32" />
             <Parameter Name="CartId" Mode="In" Type="Int32" />
             <Parameter Name="BillingId" Mode="In" Type="Int32" />
             <Parameter Name="ShippingId" Mode="In" Type="Int32" />
+            <Parameter Name="TotalCost" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="DeleteCustomer">
           <Parameter Name="Email" Mode="In" Type="String" />

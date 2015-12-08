@@ -86,7 +86,7 @@ namespace BookwormApp.Controllers
 
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "INVOICEs");
         }
 
         // GET: Shipping/Edit/5

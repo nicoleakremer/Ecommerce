@@ -44,7 +44,10 @@ namespace BookwormApp.Controllers
                 CartList.Add(Shopping);
 
             }
-            var cARTs = db.CARTs.Include(c => c.CUSTOMER);
+
+
+          
+            
             return View(CartList.ToList());
          
         }

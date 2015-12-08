@@ -86,7 +86,7 @@ namespace BookwormApp.Controllers
           
             }
 
-            return View("Index");
+            return RedirectToAction("Create", "Shipping");
         }
 
         // GET: CreditCard/Edit/5

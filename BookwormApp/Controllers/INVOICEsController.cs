@@ -18,8 +18,51 @@ namespace BookwormApp.Controllers
         public ActionResult Index()
         {
             CUSTOMER customer = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First();
-            var iNVOICEs = db.INVOICEs.Include(i => i.CUSTOMER);
-            return View(iNVOICEs.ToList());
+            SHIPPING shipping = db.SHIPPINGs.Where(x => x.CustomerId == customer.CustomerId).First();
+            CREDIT_CARD card = db.CREDIT_CARD.Where(x => x.CustomerId == customer.CustomerId).First();
+            CART cart = db.CARTs.Where(x => x.CustomerId == customer.CustomerId).First();
+            var books = db.BOOK_CART.Where(x => x.CartId == cart.CartId);
+            BookwormApp.Models.InvoiceModel model = new Models.InvoiceModel();
+
+                model.RetailPrice = new List<decimal>();
+                model.books = new List<BOOK>();
+                model.Quantity = new List<int>();
+                model.shipping = shipping;
+                model.card = card;
+                model.billing = new BILLING();
+                model.cartId = cart.CartId;
+                
+            
+            foreach (var item in books)
+            {
+                BOOK book = db.BOOKS.Where(x => x.BookId == item.BookId).First();
+                model.Quantity.Add((int)item.Quantity);
+                model.RetailPrice.Add(db.INVENTORies.Where(x => x.InventoryId == book.InventoryId).First().RetailPrice);
+                model.books.Add(book);
+            }
+            decimal CostOfBook = 0;
+            decimal TotalCost = 0;
+            for (int q = 0; q < model.Quantity.Count; q++)
+            {
+                CostOfBook = model.RetailPrice.ElementAt(q) * model.Quantity.ElementAt(q);
+                TotalCost = TotalCost + CostOfBook;
+                model.TotalCost = TotalCost;
+            }
+            return View(model);
+        }
+
+        public ActionResult Submit(int cartId, int billing, int shipping, decimal totalCost, int cardId)
+        {
+            CUSTOMER customer = db.CUSTOMERs.Where(x => x.Email == User.Identity.Name).First();
+            db.CreateInvoice(customer.CustomerId, cardId, cartId, billing, shipping, totalCost);
+            
+            return RedirectToAction("Finished");
+
+        }
+
+        public ActionResult Finished()
+        {
+            return View();
         }
 
         // GET: INVOICEs/Details/5

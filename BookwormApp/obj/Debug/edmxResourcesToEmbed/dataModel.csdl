@@ -470,9 +470,11 @@
     </FunctionImport>
     <FunctionImport Name="CreateInvoice">
       <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+      <Parameter Name="CardId" Mode="In" Type="Int32" />
       <Parameter Name="CartId" Mode="In" Type="Int32" />
       <Parameter Name="BillingId" Mode="In" Type="Int32" />
       <Parameter Name="ShippingId" Mode="In" Type="Int32" />
+      <Parameter Name="TotalCost" Mode="In" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="DeleteCustomer">
       <Parameter Name="Email" Mode="In" Type="String" />
