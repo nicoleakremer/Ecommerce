@@ -179,6 +179,7 @@
       <DependentUpon>dataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddBookController.cs" />
     <Compile Include="Controllers\AUTHORsController.cs" />
     <Compile Include="Controllers\BookwormController.cs" />
     <Compile Include="Controllers\BOOK_CARTController.cs" />
@@ -384,6 +385,11 @@
     <Content Include="Views\INVOICEs\Edit.cshtml" />
     <Content Include="Views\INVOICEs\Index.cshtml" />
     <Content Include="Views\INVOICEs\Finished.cshtml" />
+    <Content Include="Views\AddBook\Create.cshtml" />
+    <Content Include="Views\AddBook\Delete.cshtml" />
+    <Content Include="Views\AddBook\Details.cshtml" />
+    <Content Include="Views\AddBook\Edit.cshtml" />
+    <Content Include="Views\AddBook\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
